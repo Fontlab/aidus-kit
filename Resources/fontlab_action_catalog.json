@@ -1,0 +1,290 @@
+[
+  {
+    "id": "extrude",
+    "label": "3D Extrude"
+  },
+  {
+    "id": "add_ink_traps",
+    "label": "Add ink traps"
+  },
+  {
+    "id": "add_nodes",
+    "label": "Add nodes"
+  },
+  {
+    "id": "add_powerguides",
+    "label": "Add power guides"
+  },
+  {
+    "id": "add_smart_corners",
+    "label": "Add smart corners"
+  },
+  {
+    "id": "adjust_by_variation",
+    "label": "adjust by variation"
+  },
+  {
+    "id": "adjust_metrics",
+    "label": "Adjust metrics"
+  },
+  {
+    "id": "adjust_stems",
+    "label": "adjust stems"
+  },
+  {
+    "id": "round_to_integer",
+    "label": "Apply rounding"
+  },
+  {
+    "id": "auto_kern",
+    "label": "Auto Kern"
+  },
+  {
+    "id": "auto_space",
+    "label": "Auto Space"
+  },
+  {
+    "id": "autohint",
+    "label": "Autohint"
+  },
+  {
+    "id": "balance",
+    "label": "Balance"
+  },
+  {
+    "id": "bind_sidebearings",
+    "label": "Bind sidebearings"
+  },
+  {
+    "id": "blur",
+    "label": "Blur"
+  },
+  {
+    "id": "center",
+    "label": "Center layer"
+  },
+  {
+    "id": "change_height",
+    "label": "Change height"
+  },
+  {
+    "id": "change_weight",
+    "label": "Change weight"
+  },
+  {
+    "id": "change_width",
+    "label": "Change width"
+  },
+  {
+    "id": "cleanup",
+    "label": "Clean Up"
+  },
+  {
+    "id": "direction",
+    "label": "Contour direction"
+  },
+  {
+    "id": "converttobeziers",
+    "label": "Convert to PS curves"
+  },
+  {
+    "id": "converttosplines",
+    "label": "Convert to TT curves"
+  },
+  {
+    "id": "decompose",
+    "label": "Decompose"
+  },
+  {
+    "id": "expand_transform",
+    "label": "Decompose"
+  },
+  {
+    "id": "detect_metrics_links",
+    "label": "Detect metrics links"
+  },
+  {
+    "id": "detect",
+    "label": "Detect nodes"
+  },
+  {
+    "id": "remove_powerguides",
+    "label": "Disconnect power guides"
+  },
+  {
+    "id": "distort",
+    "label": "Distort"
+  },
+  {
+    "id": "engraving",
+    "label": "Engrave"
+  },
+  {
+    "id": "flatten_components",
+    "label": "Flatten Components"
+  },
+  {
+    "id": "flatten_glyph",
+    "label": "Flatten glyph"
+  },
+  {
+    "id": "font_audit",
+    "label": "FontAudit"
+  },
+  {
+    "id": "harmonize",
+    "label": "Harmonize"
+  },
+  {
+    "id": "disconnect",
+    "label": "Make overlap"
+  },
+  {
+    "id": "match_metrics",
+    "label": "Match metrics"
+  },
+  {
+    "id": "extremes",
+    "label": "Nodes at extremes"
+  },
+  {
+    "id": "nonspacing",
+    "label": "Nonspacing"
+  },
+  {
+    "id": "oblique",
+    "label": "Oblique"
+  },
+  {
+    "id": "convert_genius",
+    "label": "Outline"
+  },
+  {
+    "id": "outline",
+    "label": "Outline"
+  },
+  {
+    "id": "perspective",
+    "label": "Perspective"
+  },
+  {
+    "id": "tth_reassign_stems",
+    "label": "Reassign TT stems"
+  },
+  {
+    "id": "tth_reassign_zones",
+    "label": "Reassign TT zones"
+  },
+  {
+    "id": "tth_reassign_names",
+    "label": "Reassign TT zones"
+  },
+  {
+    "id": "remove_anchors",
+    "label": "Remove anchors"
+  },
+  {
+    "id": "remove_anchorsexpressions",
+    "label": "Remove anchors expressions"
+  },
+  {
+    "id": "remove_content",
+    "label": "Remove content"
+  },
+  {
+    "id": "remove_empty_elements",
+    "label": "Remove empty elements"
+  },
+  {
+    "id": "remove_guides",
+    "label": "Remove guides"
+  },
+  {
+    "id": "remove_hints",
+    "label": "Remove hints"
+  },
+  {
+    "id": "remove_overlap",
+    "label": "Remove overlap"
+  },
+  {
+    "id": "remove_smart_corners",
+    "label": "Remove smart corners"
+  },
+  {
+    "id": "tth_reset",
+    "label": "Remove TT hints"
+  },
+  {
+    "id": "rotate",
+    "label": "Rotate"
+  },
+  {
+    "id": "round_corners",
+    "label": "Round corners"
+  },
+  {
+    "id": "round_to_grid",
+    "label": "Round to Grid"
+  },
+  {
+    "id": "scale",
+    "label": "Scale"
+  },
+  {
+    "id": "scribble",
+    "label": "Scribble"
+  },
+  {
+    "id": "warp",
+    "label": "Scribble"
+  },
+  {
+    "id": "set_metrics",
+    "label": "Set sidebearings"
+  },
+  {
+    "id": "set_startpoint",
+    "label": "Set Start Point"
+  },
+  {
+    "id": "set_width",
+    "label": "Set width"
+  },
+  {
+    "id": "shadow",
+    "label": "Shadow"
+  },
+  {
+    "id": "sharp_corners",
+    "label": "Sharp corners"
+  },
+  {
+    "id": "shift",
+    "label": "Shift"
+  },
+  {
+    "id": "simplify",
+    "label": "Simplify"
+  },
+  {
+    "id": "slant",
+    "label": "Slant"
+  },
+  {
+    "id": "smooth",
+    "label": "Smooth"
+  },
+  {
+    "id": "set_tracking",
+    "label": "Tracking"
+  },
+  {
+    "id": "tth_autohint",
+    "label": "TT autohint"
+  },
+  {
+    "id": "unlink_metrics",
+    "label": "Unlink metrics"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "snapshot_date": "2026-11-06",
+  "fontlab_source_revision": "a56ad72da3ed81f9c45614f60e5bb572829155c8",
+  "source_worktree_modified": true,
+  "python_runtime_claim": "source capabilities, not installed runtime introspection",
+  "api_overlay": "current Python binding registrations plus marked historical introspection fallback",
+  "license": "MIT"
+}

@@ -1,0 +1,16 @@
+# Template only: replace the bridge, model and prompt paths.
+default_agent: fontlab_copilot
+mcp_servers:
+  - name: fontlab
+    type: stdio
+    command: /absolute/path/to/fontlab-mcp
+    timeout: 120
+agents:
+  fontlab_copilot:
+    type: native
+    model: PROVIDER:MODEL_ID
+    system_prompt:
+      - type: file
+        path: /absolute/path/to/fontlab-aidus-kit/prompts/AIDUS.md
+        category: role
+        content: ""
