@@ -1,16 +1,13 @@
 {
   "spec_format": "fontlab-mcp-usage/1",
   "title": "FontLab MCP practical specification",
-  "reviewed_date": "2026-10-09",
   "compatibility": {
-    "basis": "Source-derived FontLab snapshot recorded in SOURCE.json, including local changes; not tied to a released build number. Discover installed tools and schemas before use.",
     "protocol_version": "2024-11-05",
     "server_info": {
       "name": "FontLab 9",
       "version": "1.0.0"
     },
     "discovery": "Call tools/list after initialize. Server version 1.0.0 alone does not identify the feature set. Compare schemas with this reference.",
-    "legacy": "Older installations can differ in save behavior, error reporting and master targeting. Use a matching application/bridge pair and verify the required workflow on disposable data.",
     "schema_policy": "inputSchema is copied from source exactly, including loose array/object definitions. Runtime notes describe additional constraints. Unknown arguments may be ignored rather than rejected."
   },
   "connection": {

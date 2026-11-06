@@ -1,14 +1,11 @@
 @fontlab-python-api v1
-USE_JSON:Resources/fontlab_python_api.json
 
 [notes]
 CurrentFont	returns fgFont; use flPackage.findName for flGlyph.inkBox
 update	For direct editor edits use scoped flItems.notifyChangesApplied(title, [layer, glyph]) before/after with recursive history. update()/Update() are not a substitute for Undo enrollment.
 py_names	pygate alias mapping disabled in FL9; classes use fl* names at runtime
-srcdocs	Historical introspection baseline; current pygate registrations override signatures and property/method kinds. FontGate and members without source registration metadata remain historical fallback; verify installed availability.
-bindings	Current source capabilities, including conditional build branches; not runtime introspection. Property details pd give description/access; s contains static methods. binding_bases identify native registration inheritance.
-reference	Read fontlab_python_agent_guide.md before scripting; verify installed build capabilities.
-format	c=classes; p=property names; pd=source-backed property description/access; m=instance methods; s=static methods; t=constructor documentation; x=protocol methods. Static methods are listed separately from instance methods.
+format	c=classes; p=property names; pd=property description/access; m=instance methods; s=static methods; t=constructor documentation; x=protocol methods. Static methods are listed separately from instance methods.
+availability	Check installed capabilities before using an API; methods and tools vary by FontLab build.
 
 [fl.fn]
 AllFonts	AllFonts() -> list[fgFont]
@@ -93,14 +90,12 @@ run_python	M	code	Run Python code in FontLab's main Python environment. Notepad 
 get_python_output	R	lines?	Return recent Python stdout/stderr captured by the MCP server.
 
 [class:AccentInfo]
-alias:Component
 t:Data wrapper
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:asDict	represent object as dictionary
 m:asTuple	represent object as tuple
 
 [class:CurveEx]
-source:pygate/pycurveex.cpp
 t:CurveEx representation Constructors: CurveEx() - default CurveEx(QPointF p0, QPointF p1[, int leftIdx=0[, int _rightIdx=0]]) CurveEx(QPointF p0, QPointF p1, QPointF p2, QPointF p3) CurveEx( list(QPointF) )
 p:bcp0,bcp1,bcv0,bcv1,brect,contourIx,countPoints,fontlab.CurveEx.bcp0,fontlab.CurveEx.bcp1,fontlab.CurveEx.bcv0,fontlab.CurveEx.bcv1,fontlab.CurveEx.brect,fontlab.CurveEx.contourIx,fontlab.CurveEx.countPoints,fontlab.CurveEx.leftIdx,fontlab.CurveEx.p0,fontlab.CurveEx.p1,fontlab.CurveEx.paramT,fontlab.CurveEx.rightIdx,leftIdx,p0,p1,paramT,rightIdx
 p:bcp0	read/write	QPointF bcp0
@@ -127,7 +122,6 @@ m:split	bool split(CurveEx, CurveEx)
 m:updateBRect	void updateBRect()
 
 [class:ExportControl]
-source:pygate/pyexportcontrol.cpp
 t:ExportControl representation Constructors:
 p:conflictMode,contentMode,contentName,destinationFolder,destinationMode,fontlab.ExportControl.conflictMode,fontlab.ExportControl.contentMode,fontlab.ExportControl.contentName,fontlab.ExportControl.destinationFolder,fontlab.ExportControl.destinationMode,fontlab.ExportControl.groupFamily,fontlab.ExportControl.groupProfiles,fontlab.ExportControl.profileId,fontlab.ExportControl.profileName,groupFamily,groupProfiles,profileId,profileName
 p:conflictMode	read/write	int
@@ -145,7 +139,6 @@ m:load	bool load()
 m:store	store()
 
 [class:FaBasicPtr]
-source:pygate/pyfabasic.cpp
 t:FaBasicPtr representation Constructors:
 p:canBeFixed,contour,fontlab.FaBasicPtr.canBeFixed,fontlab.FaBasicPtr.contour,fontlab.FaBasicPtr.id,fontlab.FaBasicPtr.location,fontlab.FaBasicPtr.nodeIndex,fontlab.FaBasicPtr.priority,fontlab.FaBasicPtr.report,fontlab.FaBasicPtr.title,fontlab.FaBasicPtr.vector,id,location,nodeIndex,priority,report,title,vector
 p:canBeFixed	read	bool
@@ -165,7 +158,6 @@ t:FontLayer object
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:FontMetrics]
-source:pygate/pyflpackage.cpp
 t:FontMetrics representation Constructors: FontMetrics() - default FontMetrics(FontMetrics) FontMetrics(double upm) FontMetrics(fg::Package *p) FontMetrics(flPackage p, string layer_name)
 p:ascender,capsHeight,descender,fontlab.FontMetrics.ascender,fontlab.FontMetrics.capsHeight,fontlab.FontMetrics.descender,fontlab.FontMetrics.lineGap,fontlab.FontMetrics.upm,fontlab.FontMetrics.xHeight,lineGap,upm,xHeight
 p:ascender	read/write	double
@@ -178,7 +170,6 @@ m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:init	init()
 
 [class:GlyphComponent]
-source:pygate/pyflpackage.cpp
 t:GlyphComponent representation Constructors: GlyphComponent() - default GlyphComponent(GlyphComponent) GlyphComponent(uint id) GlyphComponent(string name) GlyphComponent(uint id, QTransform tx, double w, bool ua)
 p:fontlab.GlyphComponent.name_id,fontlab.GlyphComponent.transform,fontlab.GlyphComponent.use_anchors,fontlab.GlyphComponent.width_scale,name_id,transform,use_anchors,width_scale
 p:name_id	read/write	uint
@@ -193,7 +184,6 @@ p:ascender,capHeight,copyright,descender,familyName,fontlab.Info.ascender,fontla
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:Interval]
-source:pygate/pyinterval.cpp
 t:Interval representation Constructors:
 p:d,fontlab.Interval.d,fontlab.Interval.key,fontlab.Interval.t0,fontlab.Interval.t1,key,t0,t1
 p:d	read	double d
@@ -213,7 +203,6 @@ t:LocationValue representation Constructors: LocationValue(flLocation) LocationV
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:PaintBrush]
-source:pygate/pypaintbrush.cpp
 t:PaintBrush representation Constructors:
 p:angle,flatness,fontlab.PaintBrush.angle,fontlab.PaintBrush.flatness,fontlab.PaintBrush.shape,fontlab.PaintBrush.size,shape,size
 p:angle	read/write	double
@@ -239,7 +228,6 @@ m:asDict	represent object as dictionary
 m:asTuple	represent object as tuple
 
 [class:TransformFrame]
-source:pygate/pytransformframe.cpp
 t:TransformFrame representation Constructors:
 p:bl,br,cr,fontlab.TransformFrame.bl,fontlab.TransformFrame.br,fontlab.TransformFrame.cr,fontlab.TransformFrame.tl,fontlab.TransformFrame.tr,tl,tr
 p:bl	read/write	QPointF
@@ -280,7 +268,6 @@ m:tw	double tw()
 m:verticalReflection	void verticalReflection()
 
 [class:YPanelManager]
-source:pygate/pyflpanels.cpp
 p:__dict__,__weakref__,defaultState,mainWindow,panels,registeredPanels,updateOnPanelRemove
 p:defaultState	read/write	QString
 p:mainWindow	read	QMainWindow* mainWindow()
@@ -302,7 +289,6 @@ m:registeredPanel	YPanelWidget registeredPanel(int id)
 m:updateLayout	updateLayout(YPanelWidget widget)
 
 [class:YPanelWidget]
-source:pygate/pyflpanels.cpp
 p:__dict__,__weakref__,collapsed,defaultEdge,id,image,minimumPanelSize,resizePolicy,title
 p:collapsed	read/write	bool
 p:defaultEdge	read/write	int
@@ -956,7 +942,7 @@ m:asDict	represent object as dictionary
 m:asTuple	represent object as tuple
 
 [class:fgKerningObjectPair]
-t:KerningObjectPair representation Constructors: fgKerningObjectPair() - default fgKerningObjectPair(fgKerningObjectPair) - copy fgKerningObjectPair( tuple(fgKerningObject, fgKerningObject) ) fgKerningObjectPair('nameLeft', 'nameRight') fgKerningObjectPair(fgKerningObject, fgKerningObject) fgKerningOb
+t:KerningObjectPair representation Constructors: fgKerningObjectPair() - default fgKerningObjectPair(fgKerningObjectPair) - copy fgKerningObjectPair( tuple(fgKerningObject, fgKerningObject) ) fgKerningObjectPair('nameLeft', 'nameRight') fgKerningObjectPair(fgKerningObject, fgKerningObject) fgKerningObjectPair('nameLeft', 'nameRight', modeLeft, modeRight) - modeLeft, modeRight must be one of 'glyphMode'/'groupMode'
 p:fontgate.fgKerningObjectPair.left,fontgate.fgKerningObjectPair.right,left,right
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:asDict	represent object as dictionary
@@ -1251,7 +1237,7 @@ m:moveTo	moveTo(fgPoint)
 m:qCurveToOne	qCurveToOne(fgPoint, fgPoint)
 
 [class:fgPoint]
-t:Point representation Constructors: fgPoint() - default fgPoint(fgPoint) - copy fgPoint(float x) fgPoint(tuple(float x, float y)) fgPoint(float x, float y) Math Operations: fgPoint + fgPoint fgPoint - fgPoint fgPoint * fgPoint fgPoint * float - vector product fgPoint / float fgPoint > fgPoint - True 
+t:Point representation Constructors: fgPoint() - default fgPoint(fgPoint) - copy fgPoint(float x) fgPoint(tuple(float x, float y)) fgPoint(float x, float y) Math Operations: fgPoint + fgPoint fgPoint - fgPoint fgPoint * fgPoint fgPoint * float - vector product fgPoint / float fgPoint > fgPoint - True if first point is greater or equal to second fgPoint ^ fgPoint - scalar product
 p:fontgate.fgPoint.x,fontgate.fgPoint.y,x,y
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:__lshift__	x.__lshift__(y) x<<y
@@ -1290,7 +1276,7 @@ m:value	float value([horizontal=true])
 m:zero	bool zero()
 
 [class:fgPointU]
-t:PointU representation Constructors: fgPointU() - default fgPointU(fgPoint) - copy fgPointU(fgPointU) - copy fgPointU(fgPoint, float u) fgPointU(tuple(float x, float y, float u)) fgPointU(float x, float y, float u) Math Operations: fgPointU + fgPoint/fgPointU fgPointU - fgPoint/fgPointU fgPointU * fg
+t:PointU representation Constructors: fgPointU() - default fgPointU(fgPoint) - copy fgPointU(fgPointU) - copy fgPointU(fgPoint, float u) fgPointU(tuple(float x, float y, float u)) fgPointU(float x, float y, float u) Math Operations: fgPointU + fgPoint/fgPointU fgPointU - fgPoint/fgPointU fgPointU * fgPoint/fgPointU fgPointU * float - vector product fgPointU / float fgPointU > fgPointU - True if first point is greater or equal to second fgPointU ^ fgPointU - scalar product
 p:fontgate.fgPointU.u,fontgate.fgPointU.x,fontgate.fgPointU.y,u,x,y
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:__lshift__	x.__lshift__(y) x<<y
@@ -1329,7 +1315,7 @@ m:value	float value([horizontal=true])
 m:zero	bool zero()
 
 [class:fgRect]
-t:Rectangle representation Constructors: fgRect() - default fgRect(fgRect) - copy fgRect(fgPoint, fgPoint) fgRect(fgPoint, fgPoint, bool empty) fgRect(float x1, float y1, float x2, float y2) Math Operations: fgRect + fgPoint fgRect + fgRect fgRect + float fgRect - fgPoint fgRect - fgRect fgRect - floa
+t:Rectangle representation Constructors: fgRect() - default fgRect(fgRect) - copy fgRect(fgPoint, fgPoint) fgRect(fgPoint, fgPoint, bool empty) fgRect(float x1, float y1, float x2, float y2) Math Operations: fgRect + fgPoint fgRect + fgRect fgRect + float fgRect - fgPoint fgRect - fgRect fgRect - float fgRect * float fgRect / float fgRect & fgRect fgRect | fgRect
 p:fontgate.fgRect.ll,fontgate.fgRect.ur,ll,ur
 m:__and__	x.__and__(y) x&y
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
@@ -1442,7 +1428,6 @@ m:keys	keys(...)
 m:value	value(...)
 
 [class:fgSymbol]
-source:pygate/pyfgsymbol.cpp
 t:fgSymbol representation Constructors: fgSymbol() - default fgSymbol(fgSymbol) - copy fgSymbol(unicode) fgSymbol('name') fgSymbol(id, fgFont) fgSymbol(glyph_id, package_id) fgSymbol(unicode, 'name', id)
 p:cr,empty,fontlab.fgSymbol.cr,fontlab.fgSymbol.empty,fontlab.fgSymbol.glyphIndex,fontlab.fgSymbol.hasName,fontlab.fgSymbol.hasUnicode,fontlab.fgSymbol.id,fontlab.fgSymbol.layerName,fontlab.fgSymbol.ligatureIndex,fontlab.fgSymbol.name,fontlab.fgSymbol.pid,fontlab.fgSymbol.space,fontlab.fgSymbol.unicode,fontlab.fgSymbol.unicodeEnsure,glyphIndex,hasName,hasUnicode,id,layerName,ligatureIndex,name,pid,space,unicode,unicodeEnsure
 p:cr	read	bool
@@ -1472,7 +1457,6 @@ m:setData	setData(DataCode, QVariant d)
 m:setSterile	setSterile()
 
 [class:fgSymbolList]
-source:pygate/pyfgsymbollist.cpp
 t:fgSymbolList representation Constructors: fgSymbolList() - default fgSymbolList(fgSymbolList) - copy fgSymbolList(list(fgSymbol)) fgSymbolList(string[, bool advancedProcessing = false]) fgSymbolList(fgSymbolList, int len) fgSymbolList(fgFont, fgGlyphIDsSet) fgSymbolList(fgFont, list(glyph_id))
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:append	append(fgSymbol | fgSymbolList)
@@ -1691,8 +1675,6 @@ m:del	del(index) - delete item by index
 m:insert	insert(position, item) - insert item into list at specified position
 
 [class:flAbstractEditor]
-source:pygate/pyfllineedit.cpp
-bases:flObject
 t:flAbstractEditor representation Constructors: flAbstractEditor() flAbstractEditor(flObject)
 p:fontlab.flAbstractEditor.hasChanges,fontlab.flAbstractEditor.hasHistoryStates,fontlab.flAbstractEditor.id,fontlab.flAbstractEditor.isChanged,fontlab.flAbstractEditor.isNull,fontlab.flAbstractEditor.isPresent,fontlab.flAbstractEditor.isReleased,fontlab.flAbstractEditor.isValid,fontlab.flAbstractEditor.name,fontlab.flAbstractEditor.refCnt,fontlab.flAbstractEditor.type,fontlab.flAbstractEditor.widget,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,type,widget
 p:hasChanges	read	bool
@@ -1745,8 +1727,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flAbstractVectorNode]
-source:pygate/pyflvectornode.cpp
-bases:flNode
 t:flAbstractVectorNode representation Constructors: flAbstractVectorNode(flAbstractVectorNode) flAbstractVectorNode(flObject)
 p:angle,contour,fontlab.flAbstractVectorNode.angle,fontlab.flAbstractVectorNode.contour,fontlab.flAbstractVectorNode.g2,fontlab.flAbstractVectorNode.hasChanges,fontlab.flAbstractVectorNode.hasHistoryStates,fontlab.flAbstractVectorNode.hobby,fontlab.flAbstractVectorNode.id,fontlab.flAbstractVectorNode.index,fontlab.flAbstractVectorNode.interpolated,fontlab.flAbstractVectorNode.interpolatedX,fontlab.flAbstractVectorNode.interpolatedY,fontlab.flAbstractVectorNode.isChanged,fontlab.flAbstractVectorNode.isNull,fontlab.flAbstractVectorNode.isPresent,fontlab.flAbstractVectorNode.isReleased,fontlab.flAbstractVectorNode.isSelectedAlone,fontlab.flAbstractVectorNode.isTerminal,fontlab.flAbstractVectorNode.isValid,fontlab.flAbstractVectorNode.name,fontlab.flAbstractVectorNode.nodeState,fontlab.flAbstractVectorNode.position,fontlab.flAbstractVectorNode.preview,fontlab.flAbstractVectorNode.refCnt,fontlab.flAbstractVectorNode.scv,fontlab.flAbstractVectorNode.selected,fontlab.flAbstractVectorNode.smartAngleR,fontlab.flAbstractVectorNode.smooth,fontlab.flAbstractVectorNode.state,fontlab.flAbstractVectorNode.type,fontlab.flAbstractVectorNode.x,fontlab.flAbstractVectorNode.y,g2,hasChanges,hasHistoryStates,hobby,id,index,interpolated,interpolatedX,interpolatedY,isChanged,isNull,isPresent,isReleased,isSelectedAlone,isTerminal,isValid,name,nodeState,position,preview,refCnt,scv,selected,smartAngleR,smooth,state,type,x,y
 p:angle	read	angle
@@ -1869,8 +1849,6 @@ m:updateG2	bool updateG2()
 m:updateSmooth	updateSmooth([bool extended_neibh=true])
 
 [class:flAnchor]
-source:pygate/pyflanchor.cpp
-bases:flObject
 t:flAnchor representation Constructors: flAnchor() - default flAnchor(flAnchor) - copy flAnchor(flObject)
 p:anchorCode,anchorPoint,fixHorzDirection,fixVertDirection,fontlab.flAnchor.anchorCode,fontlab.flAnchor.anchorPoint,fontlab.flAnchor.fixHorzDirection,fontlab.flAnchor.fixVertDirection,fontlab.flAnchor.hasChanges,fontlab.flAnchor.hasHistoryStates,fontlab.flAnchor.id,fontlab.flAnchor.isChanged,fontlab.flAnchor.isGlobal,fontlab.flAnchor.isNull,fontlab.flAnchor.isPresent,fontlab.flAnchor.isReleased,fontlab.flAnchor.isValid,fontlab.flAnchor.name,fontlab.flAnchor.refCnt,fontlab.flAnchor.type,hasChanges,hasHistoryStates,id,isChanged,isGlobal,isNull,isPresent,isReleased,isValid,name,refCnt,type
 p:anchorCode	read	quint64
@@ -1928,8 +1906,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flAuditInfo]
-source:pygate/pyflauditinfo.cpp
-bases:flObject
 t:flAuditInfo representation Constructors: flAuditInfo() flAuditInfo(flObject) flAuditInfo(flAuditInfo) flAuditInfo(FaBasic, QTransform)
 p:basic,fontlab.flAuditInfo.basic,fontlab.flAuditInfo.hasChanges,fontlab.flAuditInfo.hasHistoryStates,fontlab.flAuditInfo.id,fontlab.flAuditInfo.isChanged,fontlab.flAuditInfo.isNull,fontlab.flAuditInfo.isPresent,fontlab.flAuditInfo.isReleased,fontlab.flAuditInfo.isValid,fontlab.flAuditInfo.item,fontlab.flAuditInfo.name,fontlab.flAuditInfo.refCnt,fontlab.flAuditInfo.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,item,name,refCnt,type
 p:basic	read	FaBasic
@@ -1982,7 +1958,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flAxis]
-source:pygate/pyflaxis.cpp
 t:flAxis representation Constructors: flAxis() - default flAxis(string name) flAxis(string name, string tag, string short_name)
 p:default,designDef,designMax,designMin,fontlab.flAxis.default,fontlab.flAxis.designDef,fontlab.flAxis.designMax,fontlab.flAxis.designMin,fontlab.flAxis.hidden,fontlab.flAxis.map,fontlab.flAxis.maximum,fontlab.flAxis.minimal,fontlab.flAxis.name,fontlab.flAxis.playRange,fontlab.flAxis.shortName,fontlab.flAxis.tag,hidden,map,maximum,minimal,name,playRange,shortName,tag
 p:default	read/write	double
@@ -2021,8 +1996,6 @@ m:updateShortName	void updateShortName()
 m:updateTag	void updateTag()
 
 [class:flBasicTool]
-source:pygate/pyflbasictool.cpp
-bases:flObject
 t:flBasicTool representation Constructors: flBasicTool() flBasicTool(flObject) flBasicTool(flBasicTool)
 p:cursorId,fontlab.flBasicTool.cursorId,fontlab.flBasicTool.hasChanges,fontlab.flBasicTool.hasHistoryStates,fontlab.flBasicTool.id,fontlab.flBasicTool.isChanged,fontlab.flBasicTool.isNull,fontlab.flBasicTool.isPresent,fontlab.flBasicTool.isReleased,fontlab.flBasicTool.isValid,fontlab.flBasicTool.name,fontlab.flBasicTool.needDeactivateParent,fontlab.flBasicTool.refCnt,fontlab.flBasicTool.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,needDeactivateParent,refCnt,type
 p:cursorId	read	CursorId
@@ -2076,8 +2049,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flCanvas]
-source:pygate/pyflcanvas.cpp
-bases:flVisualItem
 t:flCanvas representation Constructors: flCanvas() flCanvas(flCanvas) flCanvas(flObject) flCanvas(id)
 p:fontlab.flCanvas.hasChanges,fontlab.flCanvas.hasHistoryStates,fontlab.flCanvas.hovered,fontlab.flCanvas.id,fontlab.flCanvas.isChanged,fontlab.flCanvas.isNull,fontlab.flCanvas.isPresent,fontlab.flCanvas.isReleased,fontlab.flCanvas.isValid,fontlab.flCanvas.locked,fontlab.flCanvas.modelProducer,fontlab.flCanvas.name,fontlab.flCanvas.opacity,fontlab.flCanvas.owner,fontlab.flCanvas.paper,fontlab.flCanvas.refCnt,fontlab.flCanvas.selected,fontlab.flCanvas.transform,fontlab.flCanvas.type,fontlab.flCanvas.viewPoint,fontlab.flCanvas.viewPort,fontlab.flCanvas.viewTransform,fontlab.flCanvas.visible,fontlab.flCanvas.workspace,hasChanges,hasHistoryStates,hovered,id,isChanged,isNull,isPresent,isReleased,isValid,locked,modelProducer,name,opacity,owner,paper,refCnt,selected,transform,type,viewPoint,viewPort,viewTransform,visible,workspace
 p:hasChanges	read	bool
@@ -2273,8 +2244,6 @@ m:zoomTo	zoomTo(QPointF canvas_point, double scale, ViewPointAlignment=vpCenter)
 m:zoomToReaded	zoomToReaded()
 
 [class:flContour]
-source:pygate/pyflcontour.cpp
-bases:flObject
 t:flContour representation Constructors: flContour() flContour(flObject) flContour(flContour) flContour(fgContour) flContour(id) flContour(list(Node)[, bool closed=false]) flContour(list(QPointF)[, flNode::NodeType=flNode::On[, bool closed=false]]) flContour(QRectF) flContour(QLineF)
 p:bounds,clockwise,closed,closedT0,closedT1,first,font,fontlab.flContour.bounds,fontlab.flContour.clockwise,fontlab.flContour.closed,fontlab.flContour.closedT0,fontlab.flContour.closedT1,fontlab.flContour.first,fontlab.flContour.font,fontlab.flContour.glyph,fontlab.flContour.hasChanges,fontlab.flContour.hasCorners,fontlab.flContour.hasHistoryStates,fontlab.flContour.hasSmartAngle,fontlab.flContour.id,fontlab.flContour.isChanged,fontlab.flContour.isComplete,fontlab.flContour.isNull,fontlab.flContour.isPresent,fontlab.flContour.isReleased,fontlab.flContour.isTT,fontlab.flContour.isValid,fontlab.flContour.last,fontlab.flContour.layer,fontlab.flContour.name,fontlab.flContour.nodesCount,fontlab.flContour.paramT0,fontlab.flContour.paramT1,fontlab.flContour.paramsClosed,fontlab.flContour.prevLast,fontlab.flContour.refCnt,fontlab.flContour.reversed,fontlab.flContour.selection,fontlab.flContour.transform,fontlab.flContour.type,glyph,hasChanges,hasCorners,hasHistoryStates,hasSmartAngle,id,isChanged,isComplete,isNull,isPresent,isReleased,isTT,isValid,last,layer,name,nodesCount,paramT0,paramT1,paramsClosed,prevLast,refCnt,reversed,selection,transform,type
 p:bounds	read	The bounds of the contour as tuple (xMin, yMin, xMax, yMax) or None
@@ -2471,8 +2440,6 @@ m:validatedT	float validatedT(float t)
 m:verifySmooth	verifySmooth()
 
 [class:flContourInfo]
-source:pygate/pyflcontourinfo.cpp
-bases:flSearchInfo
 t:flContourInfo representation Constructors: flContourInfo() flContourInfo(flObject) flContourInfo(flContour, flSearchInfo) flContourInfo(flContour, flShapeInfo) flContourInfo(flContour, flContourInfo) flContourInfo(flContour, QTransform)
 p:contour,dist,fontlab.flContourInfo.contour,fontlab.flContourInfo.dist,fontlab.flContourInfo.glyphInfo,fontlab.flContourInfo.hasChanges,fontlab.flContourInfo.hasHistoryStates,fontlab.flContourInfo.id,fontlab.flContourInfo.isChanged,fontlab.flContourInfo.isNull,fontlab.flContourInfo.isPresent,fontlab.flContourInfo.isReleased,fontlab.flContourInfo.isValid,fontlab.flContourInfo.name,fontlab.flContourInfo.refCnt,fontlab.flContourInfo.shapeInfo,fontlab.flContourInfo.transform,fontlab.flContourInfo.type,glyphInfo,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,shapeInfo,transform,type
 p:contour	read/write	flContour>
@@ -2537,8 +2504,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flContourMarker]
-source:pygate/pyflcontourmarker.cpp
-bases:flObject
 t:flContourMarker representation Constructors: flContourMarker() flContourMarker(flObject) flContourMarker(flContourMarker)
 p:contour,fontlab.flContourMarker.contour,fontlab.flContourMarker.hasChanges,fontlab.flContourMarker.hasHistoryStates,fontlab.flContourMarker.id,fontlab.flContourMarker.isChanged,fontlab.flContourMarker.isNull,fontlab.flContourMarker.isPresent,fontlab.flContourMarker.isReleased,fontlab.flContourMarker.isValid,fontlab.flContourMarker.name,fontlab.flContourMarker.outer,fontlab.flContourMarker.paramT,fontlab.flContourMarker.refCnt,fontlab.flContourMarker.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,outer,paramT,refCnt,type
 p:contour	read/write	flObject
@@ -2593,7 +2558,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flEvent]
-source:pygate/pyflevent.cpp
 t:flEvent representation Constructors: flEvent(flEvent) flEvent(flEvent(EventType type[, int modifiers=-1])
 p:fontlab.flEvent.modifiers,fontlab.flEvent.type,modifiers,type
 p:modifiers	read/write	int
@@ -2601,8 +2565,6 @@ p:type	read/write	EventType
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:flExpression]
-source:pygate/pyflexpression.cpp
-bases:flObject
 t:flExpression representation Constructors: flExpression() flExpression(flObject) flExpression(flExpression) flExpression(string)
 p:error,expression,fontlab.flExpression.error,fontlab.flExpression.hasChanges,fontlab.flExpression.hasHistoryStates,fontlab.flExpression.id,fontlab.flExpression.isChanged,fontlab.flExpression.isNull,fontlab.flExpression.isPresent,fontlab.flExpression.isReleased,fontlab.flExpression.isValid,fontlab.flExpression.name,fontlab.flExpression.ready,fontlab.flExpression.refCnt,fontlab.flExpression.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,ready,refCnt,type
 p:error	read/write	int
@@ -2661,8 +2623,6 @@ m:update	update()
 m:variables	QStringList variables([QMap<QString, QString> aliases])
 
 [class:flGlyph]
-source:pygate/pyflglyph.cpp
-bases:flObject
 t:flGlyph representation Constructors: flGlyph() flGlyph(flGlyph) flGlyph(flObject) flGlyph(fgGlyph, fgFont)
 p:activeLayer,advanceWidth,ascender,bodyLayer,bodyRect,boundingBox,descender,fgGlyph,fgGlyphId,fgPackage,fontlab.flGlyph.activeLayer,fontlab.flGlyph.advanceWidth,fontlab.flGlyph.ascender,fontlab.flGlyph.bodyLayer,fontlab.flGlyph.bodyRect,fontlab.flGlyph.boundingBox,fontlab.flGlyph.descender,fontlab.flGlyph.fgGlyph,fontlab.flGlyph.fgGlyphId,fontlab.flGlyph.fgPackage,fontlab.flGlyph.getStateObject,fontlab.flGlyph.glyphRect,fontlab.flGlyph.hasBody,fontlab.flGlyph.hasChanges,fontlab.flGlyph.hasHistoryStates,fontlab.flGlyph.id,fontlab.flGlyph.isChanged,fontlab.flGlyph.isNull,fontlab.flGlyph.isPresent,fontlab.flGlyph.isReleased,fontlab.flGlyph.isValid,fontlab.flGlyph.lastModified,fontlab.flGlyph.layers,fontlab.flGlyph.leftMetric,fontlab.flGlyph.mark,fontlab.flGlyph.metricsLeft,fontlab.flGlyph.metricsRect,fontlab.flGlyph.metricsRight,fontlab.flGlyph.metricsWidth,fontlab.flGlyph.name,fontlab.flGlyph.nodesCount,fontlab.flGlyph.note,fontlab.flGlyph.package,fontlab.flGlyph.refCnt,fontlab.flGlyph.rightMetric,fontlab.flGlyph.tags,fontlab.flGlyph.type,getStateObject,glyphMark,glyphRect,hasBody,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,lastModified,layers,leftMetric,lib,mark,metricsLeft,metricsRect,metricsRight,metricsWidth,name,nodesCount,note,otGlyphClass,otLigaturesCount,otMarkClass,package,propertiesProcessor,refCnt,rightMetric,tags,type
 p:activeLayer	read/write	flLayer
@@ -2800,8 +2760,6 @@ m:vertReflection	bool vertReflection()
 m:virtualTags	QSet<QString>/Nothing virtualTags()
 
 [class:flGlyphInfo]
-source:pygate/pyflglyphinfo.cpp
-bases:flGraphicsInfo
 t:flGlyphInfo representation Constructors: flGlyphInfo() flGlyphInfo(flObject) flGlyphInfo(flGlyphInfo) flGlyphInfo(flGlyph, QTransform) flGlyphInfo(fgSymbol, fgGlyph, fgFont)
 p:bodyRectOnCanvas,boundingBox,brectOnCanvas,changedRect,dist,fontSize,fontlab.flGlyphInfo.bodyRectOnCanvas,fontlab.flGlyphInfo.boundingBox,fontlab.flGlyphInfo.brectOnCanvas,fontlab.flGlyphInfo.changedRect,fontlab.flGlyphInfo.dist,fontlab.flGlyphInfo.fontSize,fontlab.flGlyphInfo.glyph,fontlab.flGlyphInfo.glyphRectCanvas,fontlab.flGlyphInfo.hasChanges,fontlab.flGlyphInfo.hasHistoryStates,fontlab.flGlyphInfo.id,fontlab.flGlyphInfo.isActive,fontlab.flGlyphInfo.isChanged,fontlab.flGlyphInfo.isNull,fontlab.flGlyphInfo.isNullGlyph,fontlab.flGlyphInfo.isPresent,fontlab.flGlyphInfo.isReleased,fontlab.flGlyphInfo.isSelected,fontlab.flGlyphInfo.isValid,fontlab.flGlyphInfo.leftOffset,fontlab.flGlyphInfo.metricsRectOnCanvas,fontlab.flGlyphInfo.name,fontlab.flGlyphInfo.refCnt,fontlab.flGlyphInfo.rightOffset,fontlab.flGlyphInfo.shapesBoundingBoxOnCanvas,fontlab.flGlyphInfo.state,fontlab.flGlyphInfo.symbol,fontlab.flGlyphInfo.textBlock,fontlab.flGlyphInfo.transform,fontlab.flGlyphInfo.type,glyph,glyphRectCanvas,hasChanges,hasHistoryStates,id,isActive,isChanged,isNull,isNullGlyph,isPresent,isReleased,isSelected,isValid,leftOffset,metricsRectOnCanvas,name,refCnt,rightOffset,shapesBoundingBoxOnCanvas,state,symbol,textBlock,transform,type
 p:bodyRectOnCanvas	read	QRectF
@@ -2883,8 +2841,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flGraphicsInfo]
-source:pygate/pyflgraphicsinfo.cpp
-bases:flObject
 t:flGraphicsInfo representation Constructors: flGraphicsInfo() flGraphicsInfo(flObject) flGraphicsInfo(flGraphicsInfo)
 p:fontlab.flGraphicsInfo.hasChanges,fontlab.flGraphicsInfo.hasHistoryStates,fontlab.flGraphicsInfo.id,fontlab.flGraphicsInfo.isChanged,fontlab.flGraphicsInfo.isNull,fontlab.flGraphicsInfo.isPresent,fontlab.flGraphicsInfo.isReleased,fontlab.flGraphicsInfo.isValid,fontlab.flGraphicsInfo.name,fontlab.flGraphicsInfo.refCnt,fontlab.flGraphicsInfo.transform,fontlab.flGraphicsInfo.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,transform,type
 p:hasChanges	read	bool
@@ -2935,9 +2891,7 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flGuideLine]
-source:pygate/pyflguideline.cpp
-bases:flSnapLine
-t:flGuideLine representation Constructors: flGuideLine() flGuideLine(flObject) flGuideLine(flGuideLine) flGuideLine(double angle, QPointF canvas_point, uint=flSnaps::Vector, SnapObjectsStyle=gsPageGuideline) flGuideLine(QLineF line, uint=flSnaps::Vector, SnapObjectsStyle=gsPageGuideline) flGuideLine(Q
+t:flGuideLine representation Constructors: flGuideLine() flGuideLine(flObject) flGuideLine(flGuideLine) flGuideLine(double angle, QPointF canvas_point, uint=flSnaps::Vector, SnapObjectsStyle=gsPageGuideline) flGuideLine(QLineF line, uint=flSnaps::Vector, SnapObjectsStyle=gsPageGuideline) flGuideLine(QPointF center, QPointF vector_point, uint =flSnaps::Vector, SnapObjectsStyle=gsPageGuideline)
 p:angle,angleMode,center,centerPoint,color,constraints,expression,extLinef,extPosition,extension,fontlab.flGuideLine.angle,fontlab.flGuideLine.angleMode,fontlab.flGuideLine.center,fontlab.flGuideLine.centerPoint,fontlab.flGuideLine.color,fontlab.flGuideLine.constraints,fontlab.flGuideLine.expression,fontlab.flGuideLine.extLinef,fontlab.flGuideLine.extPosition,fontlab.flGuideLine.hasChanges,fontlab.flGuideLine.hasColor,fontlab.flGuideLine.hasExpression,fontlab.flGuideLine.hasHistoryStates,fontlab.flGuideLine.hasTags,fontlab.flGuideLine.haveExtLine,fontlab.flGuideLine.id,fontlab.flGuideLine.isAbsoluteMarkerPos,fontlab.flGuideLine.isChanged,fontlab.flGuideLine.isExluded,fontlab.flGuideLine.isHint,fontlab.flGuideLine.isInUse,fontlab.flGuideLine.isMeasurementLine,fontlab.flGuideLine.isNull,fontlab.flGuideLine.isPassive,fontlab.flGuideLine.isPresent,fontlab.flGuideLine.isReleased,fontlab.flGuideLine.isShortGuideline,fontlab.flGuideLine.isValid,fontlab.flGuideLine.isVerticalQuarter,fontlab.flGuideLine.isZone,fontlab.flGuideLine.length,fontlab.flGuideLine.linef,fontlab.flGuideLine.markers,fontlab.flGuideLine.markersStructVersion,fontlab.flGuideLine.name,fontlab.flGuideLine.refCnt,fontlab.flGuideLine.snapFlags,fontlab.flGuideLine.style,fontlab.flGuideLine.tags,fontlab.flGuideLine.type,fontlab.flGuideLine.vector,fontlab.flGuideLine.vectorPoint,hasChanges,hasColor,hasExpression,hasExtLine,hasHistoryStates,hasTags,haveExtLine,id,isAbsoluteMarkerPos,isChanged,isExluded,isGhost,isHint,isInUse,isMeasurementLine,isNull,isPassive,isPresent,isReleased,isShortGuideline,isValid,isVerticalQuarter,isZone,length,linef,markers,markersStructVersion,name,refCnt,snapFlags,style,tags,type,vector,vectorPoint
 p:angle	read/write	double
 p:angleMode	read/write	SnapAngleMode
@@ -3035,7 +2989,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flHintingParameters]
-source:pygate/pyflpackage.cpp
 t:flHintingParameters representation Constructors: flHintingParameters() - default
 p:blueFuzz,blueScale,blueShift,codePPM,dropoutPPM,flex,fontDirectionHint,fontlab.flHintingParameters.blueFuzz,fontlab.flHintingParameters.blueScale,fontlab.flHintingParameters.blueShift,fontlab.flHintingParameters.codePPM,fontlab.flHintingParameters.dropoutPPM,fontlab.flHintingParameters.flex,fontlab.flHintingParameters.fontDirectionHint,fontlab.flHintingParameters.forceBold,fontlab.flHintingParameters.forceBoldTreshold,fontlab.flHintingParameters.lowestRecPPEM,fontlab.flHintingParameters.maxFunctionDefs,fontlab.flHintingParameters.maxInstructionDefs,fontlab.flHintingParameters.maxStackElements,fontlab.flHintingParameters.maxStorage,fontlab.flHintingParameters.maxTwilightPoints,fontlab.flHintingParameters.maxZones,fontlab.flHintingParameters.stemSnapLimit,fontlab.flHintingParameters.zonePPM,forceBold,forceBoldTreshold,lowestRecPPEM,maxFunctionDefs,maxInstructionDefs,maxStackElements,maxStorage,maxTwilightPoints,maxZones,stemSnapLimit,zonePPM
 p:blueFuzz	read/write	int
@@ -3060,7 +3013,6 @@ m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:init	init()
 
 [class:flInstance]
-source:pygate/pyflaxis.cpp
 t:flInstance representation Constructors: flInstance() flInstance(string name, string tsn, flLocation location)
 p:bold,exportable,fontlab.flInstance.bold,fontlab.flInstance.exportable,fontlab.flInstance.italic,fontlab.flInstance.location,fontlab.flInstance.name,fontlab.flInstance.sgn,fontlab.flInstance.slv,fontlab.flInstance.tsn,fontlab.flInstance.weight,fontlab.flInstance.weightValue,fontlab.flInstance.width,italic,location,name,sgn,slv,tfn,tsn,weight,weightValue,width
 p:bold	read/write	bool
@@ -3082,7 +3034,6 @@ m:autoTSN	string autoTSN()
 m:setSLV	setSLV(bool bold, bool italic)
 
 [class:flItems]
-source:pygate/pyflitems.cpp
 t:flItems representation Constructors: flItems()
 p:fontlab.flItems.qobject,fontlab.flItems.workspace,qobject,workspace
 p:workspace	read/write	flObject
@@ -3241,8 +3192,6 @@ m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:shapeBuilders	list(flObject) shapeBuilders()
 
 [class:flLayer]
-source:pygate/pyfllayer.cpp
-bases:flObject
 t:flLayer representation Constructors: flLayer() flLayer(flObject) flLayer(flGlyph) flLayer('title')
 p:advanceHeight,advanceWidth,anchors,autoLayer,boundingBox,components,componentsCount,compoundReleaseSelected,counterAnchors,fontlab.flLayer.advanceHeight,fontlab.flLayer.advanceWidth,fontlab.flLayer.anchors,fontlab.flLayer.autoLayer,fontlab.flLayer.boundingBox,fontlab.flLayer.components,fontlab.flLayer.componentsCount,fontlab.flLayer.compoundReleaseSelected,fontlab.flLayer.counterAnchors,fontlab.flLayer.glyph,fontlab.flLayer.guidelines,fontlab.flLayer.hasAdvanceHeight,fontlab.flLayer.hasAdvanceWidth,fontlab.flLayer.hasBody,fontlab.flLayer.hasChanges,fontlab.flLayer.hasComponents,fontlab.flLayer.hasComposites,fontlab.flLayer.hasGuides,fontlab.flLayer.hasHints,fontlab.flLayer.hasHistoryStates,fontlab.flLayer.hasNote,fontlab.flLayer.hasTTData,fontlab.flLayer.hasTTH,fontlab.flLayer.haveActiveComposite,fontlab.flLayer.id,fontlab.flLayer.isActive,fontlab.flLayer.isAllSelected,fontlab.flLayer.isBodyLayer,fontlab.flLayer.isChanged,fontlab.flLayer.isImg,fontlab.flLayer.isImgLayer,fontlab.flLayer.isLocked,fontlab.flLayer.isLockedI,fontlab.flLayer.isMask,fontlab.flLayer.isMaskLayer,fontlab.flLayer.isMasterLayer,fontlab.flLayer.isNull,fontlab.flLayer.isPresent,fontlab.flLayer.isReleased,fontlab.flLayer.isService,fontlab.flLayer.isServiceMA,fontlab.flLayer.isValid,fontlab.flLayer.isVisible,fontlab.flLayer.isVisibleA,fontlab.flLayer.isWireframe,fontlab.flLayer.mark,fontlab.flLayer.metricsLeft,fontlab.flLayer.metricsRight,fontlab.flLayer.metricsWidth,fontlab.flLayer.name,fontlab.flLayer.note,fontlab.flLayer.opacity,fontlab.flLayer.recipe,fontlab.flLayer.refCnt,fontlab.flLayer.shapes,fontlab.flLayer.shapesCount,fontlab.flLayer.transform,fontlab.flLayer.ttData,fontlab.flLayer.tthProgram,fontlab.flLayer.type,fontlab.flLayer.wireframeColor,glyph,guidelines,hasAdvanceHeight,hasAdvanceWidth,hasBody,hasChanges,hasComponents,hasComposites,hasGuides,hasHints,hasHistoryStates,hasNote,hasTTData,hasTTH,haveActiveComposite,id,isActive,isAllSelected,isBodyLayer,isChanged,isImg,isImgLayer,isLocked,isLockedI,isMask,isMaskLayer,isMasterLayer,isNull,isPresent,isReleased,isService,isServiceMA,isValid,isVisible,isVisibleA,isWireframe,lib,mark,metricsLeft,metricsRight,metricsWidth,name,note,opacity,propertiesProcessor,recipe,refCnt,shapes,shapesCount,transform,ttData,tthProgram,type,wireframeColor
 p:advanceHeight	read/write	double
@@ -3437,15 +3386,12 @@ m:updateGuidelineNode	flNode updateGuidelineNode(flNode node)
 m:updatePreviewLinks	void updatePreviewLinks()
 
 [class:flLayerAttributes]
-alias:LayerAttributes
 t:Data wrapper
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:asDict	represent object as dictionary
 m:asTuple	represent object as tuple
 
 [class:flLayerInfo]
-source:pygate/pyfllayerinfo.cpp
-bases:flSearchInfo
 t:flLayerInfo representation Constructors: flLayerInfo() flLayerInfo(flObject) flLayerInfo(flLayerInfo) flLayerInfo(flLayer, QTransform) flLayerInfo(flLayer, flObject glyph_info, QTransform)
 p:dist,fontlab.flLayerInfo.dist,fontlab.flLayerInfo.glyphInfo,fontlab.flLayerInfo.hasChanges,fontlab.flLayerInfo.hasHistoryStates,fontlab.flLayerInfo.id,fontlab.flLayerInfo.isChanged,fontlab.flLayerInfo.isNull,fontlab.flLayerInfo.isPresent,fontlab.flLayerInfo.isReleased,fontlab.flLayerInfo.isValid,fontlab.flLayerInfo.layer,fontlab.flLayerInfo.name,fontlab.flLayerInfo.refCnt,fontlab.flLayerInfo.transform,fontlab.flLayerInfo.type,glyphInfo,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,layer,name,refCnt,transform,type
 p:dist	read/write	double dist
@@ -3502,13 +3448,10 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flLocation]
-alias:Location
 t:flLocation representation Constructors: flLocation(flLocation) flLocation()
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:flMarkerPoint]
-source:pygate/pyflMarkerPoint.cpp
-bases:flObject
 t:flMarkerPoint representation Constructors: flMarkerPoint() flMarkerPoint(flObject) flMarkerPoint(flMarkerPoint) flMarkerPoint(double marker_pos, uint markerFlags, flSnaps::MarkerKey key)
 p:fontlab.flMarkerPoint.hasChanges,fontlab.flMarkerPoint.hasHistoryStates,fontlab.flMarkerPoint.id,fontlab.flMarkerPoint.isChanged,fontlab.flMarkerPoint.isNull,fontlab.flMarkerPoint.isPresent,fontlab.flMarkerPoint.isReleased,fontlab.flMarkerPoint.isSelected,fontlab.flMarkerPoint.isStem,fontlab.flMarkerPoint.isValid,fontlab.flMarkerPoint.key,fontlab.flMarkerPoint.markerFlags,fontlab.flMarkerPoint.name,fontlab.flMarkerPoint.position,fontlab.flMarkerPoint.refCnt,fontlab.flMarkerPoint.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isSelected,isStem,isValid,key,markerFlags,name,position,refCnt,type
 p:hasChanges	read	bool
@@ -3566,7 +3509,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flModel]
-alias:Model
 t:flModel representation Constructors: None, static only methods
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 m:createObject	flObject/Nothing createObject(int type)
@@ -3579,8 +3521,6 @@ m:notifyGlyphsChanged	notifyGlyphsChanged(QSet glyphs)
 m:typeToStr	QString typeToStr(int type | flObject)
 
 [class:flModelProducer]
-source:pygate/pyflmodelproducer.cpp
-bases:flObject
 t:flModelProducer representation Constructors: flModelProducer() flModelProducer(flModelProducer) flModelProducer(flObject) flModelProducer(flCanvas)
 p:fontlab.flModelProducer.hasChanges,fontlab.flModelProducer.hasHistoryStates,fontlab.flModelProducer.id,fontlab.flModelProducer.isChanged,fontlab.flModelProducer.isNull,fontlab.flModelProducer.isPresent,fontlab.flModelProducer.isReleased,fontlab.flModelProducer.isValid,fontlab.flModelProducer.name,fontlab.flModelProducer.refCnt,fontlab.flModelProducer.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,type
 p:hasChanges	read	bool
@@ -3635,7 +3575,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flMouseEvent]
-source:pygate/pyflevent.cpp
 t:flMouseEvent representation Constructors: flMouseEvent(flMouseEvent)
 p:button,buttons,delta,firstPressed,fontlab.flMouseEvent.button,fontlab.flMouseEvent.buttons,fontlab.flMouseEvent.delta,fontlab.flMouseEvent.firstPressed,fontlab.flMouseEvent.global,fontlab.flMouseEvent.modifiers,fontlab.flMouseEvent.movement,fontlab.flMouseEvent.origin,fontlab.flMouseEvent.prev,fontlab.flMouseEvent.type,global,modifiers,movement,origin,prev,type
 p:button	read/write	Qt::MouseButton
@@ -3651,8 +3590,6 @@ p:type	read/write	EventType
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:flNode]
-source:pygate/pyflnode.cpp
-bases:flObject
 t:flNode representation Constructors: flNode() flNode(Node) - make clone flNode(QPointF position[, string nodeType="on"[, int nodeKind=None]]) flNode(double x, double y[, string nodeType="on"[, int nodeKind=None]])
 p:angle,contour,fontlab.flNode.angle,fontlab.flNode.contour,fontlab.flNode.g2,fontlab.flNode.hasChanges,fontlab.flNode.hasHistoryStates,fontlab.flNode.hobby,fontlab.flNode.id,fontlab.flNode.index,fontlab.flNode.interpolated,fontlab.flNode.interpolatedX,fontlab.flNode.interpolatedY,fontlab.flNode.isChanged,fontlab.flNode.isNull,fontlab.flNode.isPresent,fontlab.flNode.isReleased,fontlab.flNode.isSelectedAlone,fontlab.flNode.isTerminal,fontlab.flNode.isValid,fontlab.flNode.name,fontlab.flNode.nodeState,fontlab.flNode.position,fontlab.flNode.preview,fontlab.flNode.refCnt,fontlab.flNode.scv,fontlab.flNode.selected,fontlab.flNode.smartAngleR,fontlab.flNode.smooth,fontlab.flNode.state,fontlab.flNode.type,fontlab.flNode.x,fontlab.flNode.y,g2,hasChanges,hasHistoryStates,hobby,id,index,interpolated,interpolatedX,interpolatedY,isChanged,isNull,isPresent,isReleased,isSelectedAlone,isTerminal,isValid,name,nodeState,position,preview,refCnt,scv,selected,smartAngleR,smooth,state,type,x,y
 p:angle	read	angle
@@ -3774,8 +3711,6 @@ m:updateG2	bool updateG2()
 m:updateSmooth	updateSmooth([bool extended_neibh=true])
 
 [class:flNodeInfo]
-source:pygate/pyflnodeinfo.cpp
-bases:flSearchInfo
 t:flNodeInfo representation Constructors: flNodeInfo() flNodeInfo(flObject) flNodeInfo(flNodeInfo) flNodeInfo(flNode, QTransform) flNodeInfo(flNode, flObject contour_info) flNodeInfo(flNode, flObject glyph_info, QTransform) flNodeInfo(flNode, flNodeInfo)
 p:contourInfo,dist,fontlab.flNodeInfo.contourInfo,fontlab.flNodeInfo.dist,fontlab.flNodeInfo.glyphInfo,fontlab.flNodeInfo.hasChanges,fontlab.flNodeInfo.hasHistoryStates,fontlab.flNodeInfo.id,fontlab.flNodeInfo.isChanged,fontlab.flNodeInfo.isNull,fontlab.flNodeInfo.isPresent,fontlab.flNodeInfo.isReleased,fontlab.flNodeInfo.name,fontlab.flNodeInfo.node,fontlab.flNodeInfo.refCnt,fontlab.flNodeInfo.transform,fontlab.flNodeInfo.type,glyphInfo,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,node,refCnt,transform,type
 p:contourInfo	read/write	flObject
@@ -3844,7 +3779,6 @@ m:toNodesInfo	list(flNodeInfo) toNodesInfo(list(flNode))
 m:update	update()
 
 [class:flObject]
-source:pygate/pyflobject.cpp
 t:flObject representation Constructors: flObject() flObject(flObject) flObject(uint id)
 p:fontlab.flObject.hasChanges,fontlab.flObject.hasHistoryStates,fontlab.flObject.id,fontlab.flObject.isChanged,fontlab.flObject.isNull,fontlab.flObject.isPresent,fontlab.flObject.isReleased,fontlab.flObject.isValid,fontlab.flObject.name,fontlab.flObject.refCnt,fontlab.flObject.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,type
 p:hasChanges	read	bool
@@ -3894,8 +3828,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flPackage]
-source:pygate/pyflpackage.cpp
-bases:flObject
 t:flPackage representation Constructors: flPackage() flPackage(flObject) flPackage(fgFont)
 p:allGuidelines,ascender_value,axes,bold,capsHeight_value,caretOffset_value,cornerTension_value,counterAnchors,counterGuides,currentSearch,curveTension,curveTension_value,defaultMaster,descender_value,elidedName,family_zonesB,family_zonesT,ffn,fgId,fgPackage,fileName,fontLayerOrder,fontlab.flPackage.allGuidelines,fontlab.flPackage.ascender_value,fontlab.flPackage.axes,fontlab.flPackage.bold,fontlab.flPackage.capsHeight_value,fontlab.flPackage.caretOffset_value,fontlab.flPackage.cornerTension_value,fontlab.flPackage.counterAnchors,fontlab.flPackage.counterGuides,fontlab.flPackage.currentSearch,fontlab.flPackage.curveTension,fontlab.flPackage.curveTension_value,fontlab.flPackage.defaultMaster,fontlab.flPackage.descender_value,fontlab.flPackage.elidedName,fontlab.flPackage.family_zonesB,fontlab.flPackage.family_zonesT,fontlab.flPackage.ffn,fontlab.flPackage.fgId,fontlab.flPackage.fgPackage,fontlab.flPackage.fileName,fontlab.flPackage.fontLayerOrder,fontlab.flPackage.glyphsCount,fontlab.flPackage.guidelines,fontlab.flPackage.guidelinesHost,fontlab.flPackage.hasChanges,fontlab.flPackage.hasHistoryStates,fontlab.flPackage.hasWeightAxis,fontlab.flPackage.hasWidthAxis,fontlab.flPackage.hinting,fontlab.flPackage.id,fontlab.flPackage.info,fontlab.flPackage.inktrapLen_value,fontlab.flPackage.instanceAttributes,fontlab.flPackage.instances,fontlab.flPackage.interpolationCheckGeometry,fontlab.flPackage.interpolationExtrapolate,fontlab.flPackage.interpolationFlags,fontlab.flPackage.interpolationMutatorMath,fontlab.flPackage.interpolationSortContours,fontlab.flPackage.isChanged,fontlab.flPackage.isKey,fontlab.flPackage.isMaster,fontlab.flPackage.isNull,fontlab.flPackage.isPresent,fontlab.flPackage.isReleased,fontlab.flPackage.isValid,fontlab.flPackage.italic,fontlab.flPackage.italicAngle_value,fontlab.flPackage.keepShapeData,fontlab.flPackage.lineGap_value,fontlab.flPackage.mask,fontlab.flPackage.master,fontlab.flPackage.masters,fontlab.flPackage.mastersCount,fontlab.flPackage.measurement_value,fontlab.flPackage.monospaced,fontlab.flPackage.name,fontlab.flPackage.note,fontlab.flPackage.other,fontlab.flPackage.panose,fontlab.flPackage.path,fontlab.flPackage.ps_stemsH,fontlab.flPackage.ps_stemsV,fontlab.flPackage.ps_zonesB,fontlab.flPackage.ps_zonesT,fontlab.flPackage.psn,fontlab.flPackage.refCnt,fontlab.flPackage.safeBottom_value,fontlab.flPackage.safeTop_value,fontlab.flPackage.sampleString,fontlab.flPackage.sgn,fontlab.flPackage.slantTransform,fontlab.flPackage.slope,fontlab.flPackage.smartCornerParameters,fontlab.flPackage.stateObject,fontlab.flPackage.tfn,fontlab.flPackage.tsn,fontlab.flPackage.tt_stemsH,fontlab.flPackage.tt_stemsV,fontlab.flPackage.tt_zonesB,fontlab.flPackage.tt_zonesT,fontlab.flPackage.type,fontlab.flPackage.underlinePosition_value,fontlab.flPackage.underlineThickness_value,fontlab.flPackage.upm,fontlab.flPackage.variables,fontlab.flPackage.variationPackages,fontlab.flPackage.versionMajor,fontlab.flPackage.versionMinor,fontlab.flPackage.weight,fontlab.flPackage.weight_value,fontlab.flPackage.width,fontlab.flPackage.width_value,fontlab.flPackage.xHeight_value,glyphsCount,guidelines,guidelinesHost,hasChanges,hasHistoryStates,hasWeightAxis,hasWidthAxis,hinting,id,info,inktrapLen_value,instanceAttributes,instances,interpolationCheckGeometry,interpolationExtrapolate,interpolationFlags,interpolationMutatorMath,interpolationSortContours,isChanged,isKey,isMaster,isNull,isPresent,isReleased,isValid,italic,italicAngle_value,keepShapeData,lineGap_value,mask,master,masterLib,masters,mastersCount,measurement_value,monospaced,name,note,other,packageLib,panose,path,propertiesProcessor,ps_stemsH,ps_stemsV,ps_zonesB,ps_zonesT,psn,refCnt,safeBottom_value,safeTop_value,sampleString,sgn,slantTransform,slope,smartCornerParameters,stateObject,tfn,tsn,tt_stemsH,tt_stemsV,tt_zonesB,tt_zonesT,type,underlinePosition_value,underlineThickness_value,upm,variables,variationPackages,versionMajor,versionMinor,weight,weight_value,width,width_value,xHeight_value
 p:allGuidelines	read	QList<flObject>
@@ -4133,8 +4065,6 @@ m:updateZonesFromGuidelines	updateZonesFromGuidelines([flZones zonesT, flZones z
 m:zones	list(flZone)& zones(HintingDataType, bool top)
 
 [class:flPaper]
-source:pygate/pyflpaper.cpp
-bases:flObject
 t:flPaper representation Constructors: flPaper() flPaper(flPaper) flPaper(flObject) flPaper(QBrush)
 p:fontlab.flPaper.hasChanges,fontlab.flPaper.hasHistoryStates,fontlab.flPaper.id,fontlab.flPaper.isChanged,fontlab.flPaper.isNull,fontlab.flPaper.isPresent,fontlab.flPaper.isReleased,fontlab.flPaper.isValid,fontlab.flPaper.name,fontlab.flPaper.refCnt,fontlab.flPaper.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,type
 p:hasChanges	read	bool
@@ -4195,8 +4125,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flPinPoint]
-source:pygate/pyflpinpoint.cpp
-bases:flObject
 t:flPinPoint representation Constructors: flPinPoint() flPinPoint(flPinPoint) flPinPoint(flObject) flPinPoint(QPointF[, PinPointStyle=FreePosition])
 p:anchor,appearance,cloudEnabled,expressionX,expressionY,fontlab.flPinPoint.anchor,fontlab.flPinPoint.cloudEnabled,fontlab.flPinPoint.hasChanges,fontlab.flPinPoint.hasHistoryStates,fontlab.flPinPoint.id,fontlab.flPinPoint.isChanged,fontlab.flPinPoint.isLatch,fontlab.flPinPoint.isNull,fontlab.flPinPoint.isPresent,fontlab.flPinPoint.isReleased,fontlab.flPinPoint.isValid,fontlab.flPinPoint.name,fontlab.flPinPoint.point,fontlab.flPinPoint.refCnt,fontlab.flPinPoint.style,fontlab.flPinPoint.type,hasChanges,hasExpression,hasHistoryStates,id,isChanged,isLatch,isNull,isPresent,isReleased,isValid,markEnabled,name,point,refCnt,style,type
 p:anchor	read/write	bool
@@ -4258,7 +4186,6 @@ m:translate	translate(QPointF)
 m:update	update()
 
 [class:flPreferences]
-source:pygate/pyflpreferences.cpp
 t:flPreferences representation Constructors: flPreferences()
 p:colorEncoding,colorFontCell,colorGrid,colorKerning,colorMask,colorMaskGlobal,colorMaskLocal,colorMetrics,colorMetricsLines,colorWorkspace,convertDetectZoneTags,convertPostScriptPrecision,convertTrueTypePrecision,convertTrueTypeShortCurves,dataPath,dataPathDefault,deactivateShapeByClick,defaultTexts,developerBacklightUpdate,developerLargeQuickHelp,developerNoParameters,developerOpenGL,developerShowKeys,drawFocusRect,dsigAlgorithm,dsigAuthority,dsigCertificatePath,dsigPassword,dsigPrivateKeyPath,dsigTimestamp,dsigTimestampUrl,dsigUrl,dsigWrite,editorAcrossGlyphs,editorAcrossLayers,editorAcrossShapes,editorAllowCache,editorAlternativePencil,editorAutoNonSpacing,editorCenterGlyph,editorClickSelectsCurve,editorCloseDistance,editorCommandSelector,editorCommandToggle,editorContrast,editorCoordinates,editorCoordinatesEditable,editorCopyText,editorCross,editorCtrl100,editorCurvatureOpacity,editorCurvatureSize,editorDarkPreview,editorDeleteBreaksContour,editorDeleteSingleNode,editorDirectKerning,editorDirectedShift,editorDoubleClickToggle,editorDragInactiveShape,editorFastPreview,editorFeatures,editorFillOpacity,editorFillOpenContours,editorFixedBCP,editorFocus,editorFollowItalicAngle,editorForcedGrid,editorForcedSnap,editorFrameSelectsOnNodes,editorGestures,editorGuideHitDistance,editorHideMetricsTable,editorHidePlaceholders,editorInactiveHandles,editorInactiveNodes,editorInactiveWireframe,editorInertion,editorInstanceLayer,editorInterpolate,editorInterpolateModifier,editorKerningExclusive,editorKeyboardJoin,editorLayerDoubleClick,editorListMaskLayers,editorLockInactiveGlyphs,editorMatch,editorMeterCoordinates,editorMetricsDoubleClick,editorMinHandle,editorMissingGlyphs,editorModalPen,editorNodeColor,editorNodeFontDefault,editorNodeFontHovered,editorNodeHighlightDistance,editorNodeHitDistance,editorNodeSize,editorNoteExpanded,editorNudge1,editorNudge10,editorOffsetDuplicate,editorOffsetPaste,editorOutlineThickness,editorPantographCurve,editorPantographKerning,editorPantographNode,editorPasteArtwork,editorPasteContourVisual,editorPasteReplace,editorPenCorrection,editorPenPreview,editorPreviewPowerNudge,editorProportionalThickness,editorRoundCoordinates,editorRoundKerning,editorRoundMetrics,editorScrollBars,editorSetMetrics2Frame,editorShiftConstrains,editorShiftExtendsSelection,editorShortGuides,editorShowAngle,editorShowCoordinates,editorShowCurves,editorShowHiddenNodeName,editorShowNodeName,editorShowSb,editorSidebarInactive,editorSmartDelay,editorSnapDistance,editorSortMasters,editorStrongRound,editorTaperMode,editorTextWidth,editorToolsLocalized,editorTopBottom,editorUndoSelection,editorUpdateAutoLayers,editorUpdateMetricLinks,editorUseItalicAngle,editorZoneNodes,editorZoomAscender,exportConflictMode,exportContent,exportDestinationFolder,exportDestinationMode,exportFlatten,exportJsonContours,exportJsonFormatting,exportOrganizeMode,exportPPM,exportSaveFolder,exportSaveSketchboard,exportSaveVFJ,exportSaveWorkspaceVFC,exportSaveWorkspaceVFJ,exportSessionVFJ,featuresAddKerningClasses,featuresAddOpenTypeClasses,featuresAddTags,featuresAddVirtualTags,fontAbsentGray,fontAllGlyphs,fontAskFileName,fontAuditInPlace,fontAuditStemTolerance,fontCaption,fontCaptionEditable,fontCaptionHeight,fontCaptionTop,fontClose,fontColoredCaption,fontColoredItems,fontCreateBackground,fontCreateDynamic,fontCreateGenerate,fontDefaultEncoding,fontDefaultMode,fontDefaultSorting,fontDoubleClick,fontDrawLines,fontExtraIcons,fontFriendlyEncoding,fontMarkBright,fontMarkOpacity,fontMetricsLimit,fontMonospaced,fontNamFileName,fontNamFileNameDefault,fontNameUnicode,fontNewNames,fontNewWindow,fontNoteIcon,fontNoteText,fontPropertyIcon,fontRedBar,fontShowGlyphMetrics,fontSpaceScroll,fontTemplate,fontUnicodeName,fontUnicodeUppercase,fontWheelBrowse,fontWheelScroll,fontlab.flPreferences.colorEncoding,fontlab.flPreferences.colorFontCell,fontlab.flPreferences.colorGrid,fontlab.flPreferences.colorKerning,fontlab.flPreferences.colorMask,fontlab.flPreferences.colorMaskGlobal,fontlab.flPreferences.colorMaskLocal,fontlab.flPreferences.colorMetrics,fontlab.flPreferences.colorMetricsLines,fontlab.flPreferences.colorWorkspace,fontlab.flPreferences.convertDetectZoneTags,fontlab.flPreferences.convertPostScriptPrecision,fontlab.flPreferences.convertTrueTypePrecision,fontlab.flPreferences.convertTrueTypeShortCurves,fontlab.flPreferences.dataPath,fontlab.flPreferences.dataPathDefault,fontlab.flPreferences.deactivateShapeByClick,fontlab.flPreferences.defaultTexts,fontlab.flPreferences.developerBacklightUpdate,fontlab.flPreferences.developerLargeQuickHelp,fontlab.flPreferences.developerNoParameters,fontlab.flPreferences.developerOpenGL,fontlab.flPreferences.developerShowKeys,fontlab.flPreferences.drawFocusRect,fontlab.flPreferences.dsigAlgorithm,fontlab.flPreferences.dsigAuthority,fontlab.flPreferences.dsigCertificatePath,fontlab.flPreferences.dsigPassword,fontlab.flPreferences.dsigPrivateKeyPath,fontlab.flPreferences.dsigTimestamp,fontlab.flPreferences.dsigTimestampUrl,fontlab.flPreferences.dsigUrl,fontlab.flPreferences.dsigWrite,fontlab.flPreferences.editorAcrossGlyphs,fontlab.flPreferences.editorAcrossLayers,fontlab.flPreferences.editorAcrossShapes,fontlab.flPreferences.editorAlternativePencil,fontlab.flPreferences.editorAutoNonSpacing,fontlab.flPreferences.editorCenterGlyph,fontlab.flPreferences.editorClickSelectsCurve,fontlab.flPreferences.editorCloseDistance,fontlab.flPreferences.editorCommandSelector,fontlab.flPreferences.editorCommandToggle,fontlab.flPreferences.editorContrast,fontlab.flPreferences.editorCoordinatesEditable,fontlab.flPreferences.editorCopyText,fontlab.flPreferences.editorCross,fontlab.flPreferences.editorCurvatureOpacity,fontlab.flPreferences.editorCurvatureSize,fontlab.flPreferences.editorDeleteBreaksContour,fontlab.flPreferences.editorDeleteSingleNode,fontlab.flPreferences.editorDirectKerning,fontlab.flPreferences.editorDirectedShift,fontlab.flPreferences.editorDoubleClickToggle,fontlab.flPreferences.editorDragInactiveShape,fontlab.flPreferences.editorFastPreview,fontlab.flPreferences.editorFeatures,fontlab.flPreferences.editorFillOpacity,fontlab.flPreferences.editorFillOpenContours,fontlab.flPreferences.editorFixedBCP,fontlab.flPreferences.editorFocus,fontlab.flPreferences.editorFollowItalicAngle,fontlab.flPreferences.editorForcedGrid,fontlab.flPreferences.editorForcedSnap,fontlab.flPreferences.editorFrameSelectsOnNodes,fontlab.flPreferences.editorGestures,fontlab.flPreferences.editorGuideHitDistance,fontlab.flPreferences.editorHideMetricsTable,fontlab.flPreferences.editorHidePlaceholders,fontlab.flPreferences.editorInactiveHandles,fontlab.flPreferences.editorInactiveNodes,fontlab.flPreferences.editorInactiveWireframe,fontlab.flPreferences.editorInertion,fontlab.flPreferences.editorInstanceLayer,fontlab.flPreferences.editorInterpolate,fontlab.flPreferences.editorInterpolateModifier,fontlab.flPreferences.editorKerningExclusive,fontlab.flPreferences.editorLayerDoubleClick,fontlab.flPreferences.editorListMaskLayers,fontlab.flPreferences.editorMatch,fontlab.flPreferences.editorMetricsDoubleClick,fontlab.flPreferences.editorMinHandle,fontlab.flPreferences.editorMissingGlyphs,fontlab.flPreferences.editorModalPen,fontlab.flPreferences.editorNodeColor,fontlab.flPreferences.editorNodeFontDefault,fontlab.flPreferences.editorNodeFontHovered,fontlab.flPreferences.editorNodeHitDistance,fontlab.flPreferences.editorNodeSize,fontlab.flPreferences.editorNoteExpanded,fontlab.flPreferences.editorNudge1,fontlab.flPreferences.editorNudge10,fontlab.flPreferences.editorOffsetDuplicate,fontlab.flPreferences.editorOffsetPaste,fontlab.flPreferences.editorOutlineThickness,fontlab.flPreferences.editorPantographCurve,fontlab.flPreferences.editorPantographNode,fontlab.flPreferences.editorPasteArtwork,fontlab.flPreferences.editorPasteContourVisual,fontlab.flPreferences.editorPenCorrection,fontlab.flPreferences.editorRoundCoordinates,fontlab.flPreferences.editorRoundKerning,fontlab.flPreferences.editorRoundMetrics,fontlab.flPreferences.editorScrollBars,fontlab.flPreferences.editorSetMetrics2Frame,fontlab.flPreferences.editorShiftConstrains,fontlab.flPreferences.editorShiftExtendsSelection,fontlab.flPreferences.editorShowAngle,fontlab.flPreferences.editorShowCoordinates,fontlab.flPreferences.editorShowNodeName,fontlab.flPreferences.editorShowSb,fontlab.flPreferences.editorSidebarInactive,fontlab.flPreferences.editorSnapDistance,fontlab.flPreferences.editorSortMasters,fontlab.flPreferences.editorStrongRound,fontlab.flPreferences.editorTaperMode,fontlab.flPreferences.editorToolsLocalized,fontlab.flPreferences.editorTopBottom,fontlab.flPreferences.editorUndoSelection,fontlab.flPreferences.editorUpdateAutoLayers,fontlab.flPreferences.editorUpdateMetricLinks,fontlab.flPreferences.editorUseItalicAngle,fontlab.flPreferences.editorZoneNodes,fontlab.flPreferences.editorZoomAscender,fontlab.flPreferences.exportConflictMode,fontlab.flPreferences.exportContent,fontlab.flPreferences.exportDestinationFolder,fontlab.flPreferences.exportDestinationMode,fontlab.flPreferences.exportFlatten,fontlab.flPreferences.exportJsonFormatting,fontlab.flPreferences.exportOrganizeMode,fontlab.flPreferences.exportPPM,fontlab.flPreferences.exportSaveFolder,fontlab.flPreferences.exportSaveSketchboard,fontlab.flPreferences.exportSaveVFJ,fontlab.flPreferences.exportSaveWorkspaceVFC,fontlab.flPreferences.exportSaveWorkspaceVFJ,fontlab.flPreferences.exportSessionVFJ,fontlab.flPreferences.featuresAddKerningClasses,fontlab.flPreferences.featuresAddOpenTypeClasses,fontlab.flPreferences.featuresAddTags,fontlab.flPreferences.featuresAddVirtualTags,fontlab.flPreferences.fontAbsentGray,fontlab.flPreferences.fontAllGlyphs,fontlab.flPreferences.fontAskFileName,fontlab.flPreferences.fontAuditStemTolerance,fontlab.flPreferences.fontCaption,fontlab.flPreferences.fontCaptionEditable,fontlab.flPreferences.fontCaptionHeight,fontlab.flPreferences.fontCaptionTop,fontlab.flPreferences.fontClose,fontlab.flPreferences.fontColoredCaption,fontlab.flPreferences.fontColoredItems,fontlab.flPreferences.fontCreateBackground,fontlab.flPreferences.fontCreateDynamic,fontlab.flPreferences.fontCreateGenerate,fontlab.flPreferences.fontDefaultEncoding,fontlab.flPreferences.fontDefaultMode,fontlab.flPreferences.fontDefaultSorting,fontlab.flPreferences.fontDoubleClick,fontlab.flPreferences.fontDrawLines,fontlab.flPreferences.fontExtraIcons,fontlab.flPreferences.fontMarkOpacity,fontlab.flPreferences.fontMetricsLimit,fontlab.flPreferences.fontNamFileName,fontlab.flPreferences.fontNamFileNameDefault,fontlab.flPreferences.fontNameUnicode,fontlab.flPreferences.fontNewNames,fontlab.flPreferences.fontNewWindow,fontlab.flPreferences.fontNoteIcon,fontlab.flPreferences.fontNoteText,fontlab.flPreferences.fontPropertyIcon,fontlab.flPreferences.fontShowGlyphMetrics,fontlab.flPreferences.fontTemplate,fontlab.flPreferences.fontUnicodeName,fontlab.flPreferences.fontUnicodeUppercase,fontlab.flPreferences.fontsAutoSaveTimeInterval,fontlab.flPreferences.generalActivatePanels,fontlab.flPreferences.generalBeta,fontlab.flPreferences.generalCheckUpdates,fontlab.flPreferences.generalRightMargin,fontlab.flPreferences.generalSketchboard,fontlab.flPreferences.generalTabs,fontlab.flPreferences.generalVirtualKeys,fontlab.flPreferences.gridDistanceX,fontlab.flPreferences.gridDistanceY,fontlab.flPreferences.gridItalicAngle,fontlab.flPreferences.gridOpacity,fontlab.flPreferences.gridPointOpacity,fontlab.flPreferences.gridSlant,fontlab.flPreferences.groupsAlign,fontlab.flPreferences.groupsColor,fontlab.flPreferences.groupsContent,fontlab.flPreferences.groupsDoubleClick,fontlab.flPreferences.groupsFill,fontlab.flPreferences.groupsMask,fontlab.flPreferences.groupsMasters,fontlab.flPreferences.groupsMetrics,fontlab.flPreferences.groupsOpacity,fontlab.flPreferences.groupsShiftX,fontlab.flPreferences.groupsShiftY,fontlab.flPreferences.hintMaxH,fontlab.flPreferences.hintMaxV,fontlab.flPreferences.hintMinH,fontlab.flPreferences.hintMinV,fontlab.flPreferences.historyStoreSelection,fontlab.flPreferences.historyStoreViewPoint,fontlab.flPreferences.importCompileFeatures,fontlab.flPreferences.importComponents,fontlab.flPreferences.importConvertCurves,fontlab.flPreferences.importConvertNames,fontlab.flPreferences.importDecompileFeatures,fontlab.flPreferences.importDecompileTables,fontlab.flPreferences.importDecompose,fontlab.flPreferences.importDetectGenius,fontlab.flPreferences.importDetectServant,fontlab.flPreferences.importExcludeTables,fontlab.flPreferences.importLockComposites,fontlab.flPreferences.importOpenFontWindow,fontlab.flPreferences.importRenameCID,fontlab.flPreferences.importSeparateMasters,fontlab.flPreferences.importTrueTypeShortCurves,fontlab.flPreferences.interpolateSmartRound,fontlab.flPreferences.kerningAuditExceptions,fontlab.flPreferences.kerningAutoToleranceNegative,fontlab.flPreferences.kerningAutoTolerancePositive,fontlab.flPreferences.kerningPairs,fontlab.flPreferences.lockFontGuidelines,fontlab.flPreferences.lockFontMetrics,fontlab.flPreferences.lockGrid,fontlab.flPreferences.lockGuidelines,fontlab.flPreferences.lockHints,fontlab.flPreferences.lockMask,fontlab.flPreferences.lockMaskGlobal,fontlab.flPreferences.lockMetrics,fontlab.flPreferences.lockPinPoints,fontlab.flPreferences.lockZones,fontlab.flPreferences.mastersBackgroundBrightness,fontlab.flPreferences.mastersBarThickness,fontlab.flPreferences.mastersKeepCompatible,fontlab.flPreferences.mastersPreviewColor,fontlab.flPreferences.match,fontlab.flPreferences.metricsFreeKerning,fontlab.flPreferences.metricsFreeMetrics,fontlab.flPreferences.metricsNudge1,fontlab.flPreferences.metricsNudge10,fontlab.flPreferences.metricsSamples,fontlab.flPreferences.metricsSmartNavigation,fontlab.flPreferences.metricsToStroke,fontlab.flPreferences.openRestorePanels,fontlab.flPreferences.openRestoreWindows,fontlab.flPreferences.operationsOCR,fontlab.flPreferences.operationsPowerGuides,fontlab.flPreferences.operationsSeparateDetectStrings,fontlab.flPreferences.operationsSeparateMergeOverlapped,fontlab.flPreferences.operationsSeparateMergeStacked,fontlab.flPreferences.operationsTesseractLanguages,fontlab.flPreferences.operationsTracePrecision,fontlab.flPreferences.operationsTraceSmoothness,fontlab.flPreferences.panelFontSize,fontlab.flPreferences.panelTabs,fontlab.flPreferences.pasteEPS,fontlab.flPreferences.pasteIgnoreAppearance,fontlab.flPreferences.pathAutoSave,fontlab.flPreferences.pythonClearContext,fontlab.flPreferences.qobject,fontlab.flPreferences.saveBackupFolder,fontlab.flPreferences.saveConflictMode,fontlab.flPreferences.showAnchorCloudSelected,fontlab.flPreferences.showHoveredCoordinates,fontlab.flPreferences.showNodePositionLarge,fontlab.flPreferences.showNodeStyle,fontlab.flPreferences.showPinName,fontlab.flPreferences.showSelectionGlow,fontlab.flPreferences.showStemThickness,fontlab.flPreferences.showTapeLine,fontlab.flPreferences.sketchboardAutoSaveTimeInterval,fontlab.flPreferences.smartGuides,fontlab.flPreferences.snapToBounds,fontlab.flPreferences.snapToFontGuidelines,fontlab.flPreferences.snapToFontMetrics,fontlab.flPreferences.snapToGrid,fontlab.flPreferences.snapToGuidelines,fontlab.flPreferences.snapToHints,fontlab.flPreferences.snapToMask,fontlab.flPreferences.snapToMaskGlobal,fontlab.flPreferences.snapToMetrics,fontlab.flPreferences.snapToOutline,fontlab.flPreferences.snapToPinPoints,fontlab.flPreferences.snapToStems,fontlab.flPreferences.snapToZones,fontlab.flPreferences.stringIconLong,fontlab.flPreferences.stringIconShort,fontlab.flPreferences.stringSizeGlyphWaterfall,fontlab.flPreferences.stringSizeTextWaterfall,fontlab.flPreferences.templateFont,fontlab.flPreferences.templateFontFamilyName,fontlab.flPreferences.templateFontId,fontlab.flPreferences.texts,fontlab.flPreferences.tthHintingFlag,fontlab.flPreferences.tthHintingTolerance,fontlab.flPreferences.tthPPM,fontlab.flPreferences.tthRender,fontlab.flPreferences.tthSamples,fontlab.flPreferences.variationsInterpretLayerName,fontlab.flPreferences.viewAlternative,fontlab.flPreferences.viewAntialiasing,fontlab.flPreferences.workFont,fontlab.flPreferences.workFontFamilyName,fontlab.flPreferences.workFontId,fontlab.flPreferences.zoomAscender,fontlab.flPreferences.zoomDescender,fontlab.flPreferences.zoomFactorKeyboard,fontlab.flPreferences.zoomFactorWheel,fontlab.flPreferences.zoomMode,fontlab.flPreferences.zoomSize,fontsAutoSaveTimeInterval,generalActivatePanels,generalBeta,generalCheckUpdates,generalClosePanels,generalDarkFont,generalDarkGlyph,generalHideWarningDialogs,generalRightMargin,generalSketchboard,generalTabs,generalTabsDrag,generalTabsPreview,generalVirtualKeys,gridDistanceX,gridDistanceY,gridItalicAngle,gridOpacity,gridPointOpacity,gridSlant,groupsAlign,groupsColor,groupsContent,groupsDoubleClick,groupsFill,groupsMask,groupsMasters,groupsMetrics,groupsOpacity,groupsPreview,groupsShiftX,groupsShiftY,hintMaxH,hintMaxV,hintMinH,hintMinV,historyStoreSelection,historyStoreViewPoint,importCompileFeatures,importComponents,importConvertCurves,importConvertNames,importDecompileFeatures,importDecompileTables,importDecompose,importDetectGenius,importDetectServant,importExcludeTables,importLockComposites,importOpenFontWindow,importRenameCID,importRoundCoordinates,importSeparateMasters,importTrueTypeShortCurves,inactiveMastersOpacity,interpolateSmartRound,isDark,kerningAuditExceptions,kerningAutoToleranceNegative,kerningAutoTolerancePositive,kerningPairs,lockFontGuidelines,lockFontMetrics,lockGrid,lockGuidelines,lockHints,lockMask,lockMaskGlobal,lockMetrics,lockOutline,lockPinPoints,lockZones,mastersBackgroundBrightness,mastersBarThickness,mastersKeepCompatible,mastersPreviewColor,match,matchNudge,meterToolActive,meterToolDrag,metricsFreeKerning,metricsFreeMetrics,metricsHideCursor,metricsNudge1,metricsNudge10,metricsSamples,metricsSmartNavigation,metricsTableArrowsNavigation,metricsToStroke,openRestorePanels,openRestoreWindows,openRestoreWindowsGlyphs,operationsOCR,operationsPowerGuides,operationsSeparateDetectStrings,operationsSeparateMergeOverlapped,operationsSeparateMergeStacked,operationsTesseractLanguages,operationsTracePrecision,operationsTraceSmoothness,panelFontSize,panelTabs,panelWrap,pantographActive,pasteEPS,pasteIgnoreAppearance,pathAutoSave,pythonClearContext,qobject,saveBackupFolder,saveConflictMode,showAnchorCloudSelected,showElementNote,showHoveredCoordinates,showNodePositionLarge,showNodeStyle,showPinName,showSelectionGlow,showStemThickness,showTapeLine,sketchboardAutoSaveTimeInterval,smartGuides,snapToBounds,snapToCenters,snapToDistance,snapToFontGuidelines,snapToFontMetrics,snapToGrid,snapToGuidelines,snapToHints,snapToMask,snapToMaskGlobal,snapToMetrics,snapToOutline,snapToPinPoints,snapToStems,snapToZones,stringIconLong,stringIconShort,stringNewTextBlock,stringPreview,stringSizeGlyphWaterfall,stringSizeTextWaterfall,stringSticker,templateFont,templateFontFamilyName,templateFontId,texts,tthHintingFlag,tthHintingTolerance,tthPPM,tthRender,tthSamples,variationsInterpretLayerName,viewAlternative,viewAntialiasing,workFont,workFontFamilyName,workFontId,zoomAscender,zoomDescender,zoomFactorKeyboard,zoomFactorWheel,zoomMode,zoomSize
 p:colorEncoding	read/write	QColor
@@ -4627,8 +4554,6 @@ m:setEnabledHorizontalTextBlockAlignment	setEnabledHorizontalTextBlockAlignment(
 m:textBlockAlignmentCenter	bool textBlockAlignmentCenter()
 
 [class:flPropertiesProcessor]
-source:pygate/pyflpropertiesprocessor.cpp
-bases:flObject
 p:hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,properties,propertyNotifier,refCnt,type
 p:hasChanges	read	bool hasChanges()
 p:hasHistoryStates	read	bool
@@ -4684,8 +4609,6 @@ m:unbindProperties	unbindProperties()
 m:update	update()
 
 [class:flProperty]
-source:pygate/pyflproperties.cpp
-bases:flObject
 t:flProperty representation Constructors:
 p:fontlab.flProperty.hasChanges,fontlab.flProperty.hasHistoryStates,fontlab.flProperty.id,fontlab.flProperty.isChanged,fontlab.flProperty.isNull,fontlab.flProperty.isPresent,fontlab.flProperty.isReleased,fontlab.flProperty.isValid,fontlab.flProperty.name,fontlab.flProperty.objectAttr,fontlab.flProperty.refCnt,fontlab.flProperty.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,objectAttr,refCnt,type
 p:hasChanges	read	bool
@@ -4736,8 +4659,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flPropertyDouble]
-source:pygate/pyflproperties.cpp
-bases:flObject
 t:flPropertyDouble representation Constructors:
 p:expression,fontlab.flPropertyDouble.expression,fontlab.flPropertyDouble.hasChanges,fontlab.flPropertyDouble.hasHistoryStates,fontlab.flPropertyDouble.id,fontlab.flPropertyDouble.isChanged,fontlab.flPropertyDouble.isNull,fontlab.flPropertyDouble.isPresent,fontlab.flPropertyDouble.isReleased,fontlab.flPropertyDouble.isValid,fontlab.flPropertyDouble.name,fontlab.flPropertyDouble.refCnt,fontlab.flPropertyDouble.type,fontlab.flPropertyDouble.value,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,type,value
 p:expression	read	flExpression
@@ -4789,8 +4710,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flPropertyPoint]
-source:pygate/pyflproperties.cpp
-bases:flObject
 t:flPropertyPoint representation Constructors:
 p:expressionX,expressionY,fontlab.flPropertyPoint.hasChanges,fontlab.flPropertyPoint.hasHistoryStates,fontlab.flPropertyPoint.id,fontlab.flPropertyPoint.isChanged,fontlab.flPropertyPoint.isNull,fontlab.flPropertyPoint.isPresent,fontlab.flPropertyPoint.isReleased,fontlab.flPropertyPoint.isValid,fontlab.flPropertyPoint.name,fontlab.flPropertyPoint.paramType,fontlab.flPropertyPoint.point,fontlab.flPropertyPoint.refCnt,fontlab.flPropertyPoint.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,paramType,point,refCnt,type
 p:expressionX	read
@@ -4845,8 +4764,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flSearchInfo]
-source:pygate/pyflsearchinfo.cpp
-bases:flGraphicsInfo
 t:flSearchInfo representation Constructors: flSearchInfo() flSearchInfo(flObject) flSearchInfo(flSearchInfo) flSearchInfo(QTransform) flSearchInfo(QTransform, flObject glyph_info)
 p:dist,fontlab.flSearchInfo.dist,fontlab.flSearchInfo.glyphInfo,fontlab.flSearchInfo.hasChanges,fontlab.flSearchInfo.hasHistoryStates,fontlab.flSearchInfo.id,fontlab.flSearchInfo.isChanged,fontlab.flSearchInfo.isNull,fontlab.flSearchInfo.isPresent,fontlab.flSearchInfo.isReleased,fontlab.flSearchInfo.isValid,fontlab.flSearchInfo.name,fontlab.flSearchInfo.refCnt,fontlab.flSearchInfo.transform,fontlab.flSearchInfo.type,glyphInfo,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,transform,type
 p:dist	read/write	double dist
@@ -4900,8 +4817,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flShape]
-source:pygate/pyflshape.cpp
-bases:flObject
 t:flShape representation Constructors: flShape() flShape(flObject) flShape(flShapeData) flShape(flSticker) flShape(QImage) flShape(fgShape) flShape(flShapeBuilder)
 p:active,allSelectedData,boundingBox,brush,closedPath,contentLocked,contours,contoursCount,excluded,fl_transform,fontlab.flShape.active,fontlab.flShape.allSelectedData,fontlab.flShape.boundingBox,fontlab.flShape.brush,fontlab.flShape.closedPath,fontlab.flShape.contentLocked,fontlab.flShape.contours,fontlab.flShape.contoursCount,fontlab.flShape.excluded,fontlab.flShape.fl_transform,fontlab.flShape.hasBody,fontlab.flShape.hasChanges,fontlab.flShape.hasComponents,fontlab.flShape.hasContours,fontlab.flShape.hasGlobalAnchoring,fontlab.flShape.hasHistoryStates,fontlab.flShape.hasPath,fontlab.flShape.hasSmartAngle,fontlab.flShape.haveActiveShape,fontlab.flShape.haveClosed,fontlab.flShape.haveData,fontlab.flShape.haveUnclosed,fontlab.flShape.id,fontlab.flShape.image,fontlab.flShape.imagePtr,fontlab.flShape.includesList,fontlab.flShape.isChanged,fontlab.flShape.isComponent,fontlab.flShape.isComposite,fontlab.flShape.isEmpty,fontlab.flShape.isNull,fontlab.flShape.isPresent,fontlab.flShape.isReleased,fontlab.flShape.isUnbindedDependencies,fontlab.flShape.isUniform,fontlab.flShape.isValid,fontlab.flShape.name,fontlab.flShape.opacity,fontlab.flShape.openedPath,fontlab.flShape.pen,fontlab.flShape.refCnt,fontlab.flShape.selected,fontlab.flShape.shapeBuilder,fontlab.flShape.shapeData,fontlab.flShape.shapeType,fontlab.flShape.sticker,fontlab.flShape.transform,fontlab.flShape.type,hasBody,hasChanges,hasComponents,hasContours,hasGlobalAnchoring,hasHistoryStates,hasPath,hasSmartAngle,haveActiveShape,haveClosed,haveData,haveUnclosed,id,image,imagePtr,includesList,isChanged,isComponent,isComposite,isEmpty,isNull,isPresent,isReleased,isUnbindedDependencies,isUniform,isValid,name,opacity,openedPath,pen,refCnt,selected,shapeBuilder,shapeData,shapeType,sticker,transform,type
 p:active	read/write	bool
@@ -5044,8 +4959,6 @@ m:update	update()
 m:vertReflection	bool vertReflection()
 
 [class:flShapeBuilder]
-source:pygate/pyflshapebuilder.cpp
-bases:flObject
 t:flShapeBuilder representation Constructors: flShapeBuilder() flShapeBuilder(flShapeBuilder) flShapeBuilder(flObject)
 p:canUngroup,fontlab.flShapeBuilder.canUngroup,fontlab.flShapeBuilder.hasChanges,fontlab.flShapeBuilder.hasHistoryStates,fontlab.flShapeBuilder.haveResult,fontlab.flShapeBuilder.id,fontlab.flShapeBuilder.isChanged,fontlab.flShapeBuilder.isNull,fontlab.flShapeBuilder.isPresent,fontlab.flShapeBuilder.isReleased,fontlab.flShapeBuilder.isValid,fontlab.flShapeBuilder.name,fontlab.flShapeBuilder.refCnt,fontlab.flShapeBuilder.title,fontlab.flShapeBuilder.type,hasChanges,hasHistoryStates,haveResult,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,title,type
 p:canUngroup	read	bool canUngroup()
@@ -5108,8 +5021,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flShapeData]
-source:pygate/pyflshapedata.cpp
-bases:flObject
 t:flShapeData representation Constructors: flShapeData() flShapeData(flObject)
 p:builder,componentGlyph,componentLayer,contours,fontlab.flShapeData.builder,fontlab.flShapeData.componentGlyph,fontlab.flShapeData.componentLayer,fontlab.flShapeData.contours,fontlab.flShapeData.hasChanges,fontlab.flShapeData.hasHistoryStates,fontlab.flShapeData.id,fontlab.flShapeData.includes,fontlab.flShapeData.isChanged,fontlab.flShapeData.isComponent,fontlab.flShapeData.isComposite,fontlab.flShapeData.isNull,fontlab.flShapeData.isPresent,fontlab.flShapeData.isReleased,fontlab.flShapeData.isValid,fontlab.flShapeData.name,fontlab.flShapeData.note,fontlab.flShapeData.refCnt,fontlab.flShapeData.referenceCount,fontlab.flShapeData.segments,fontlab.flShapeData.shapeType,fontlab.flShapeData.type,hasChanges,hasHistoryStates,id,includes,isChanged,isComponent,isComposite,isNull,isPresent,isReleased,isValid,name,note,refCnt,referenceCount,segments,shapeType,type
 p:builder	read	flObject builder()
@@ -5188,9 +5099,7 @@ m:takeIncludesList	list(flShape) takeIncludesList()
 m:update	update()
 
 [class:flShapeInfo]
-source:pygate/pyflshapeinfo.cpp
-bases:flSearchInfo
-t:flShapeInfo representation Constructors: flShapeInfo() flShapeInfo(flObject) flShapeInfo(flShapeInfo) flShapeInfo(flShape, flSearchInfo) flShapeInfo(flShape, QTransform) flShapeInfo(flShape, QTransform, QList composites) flShapeInfo(flShape, QTransform, flObject glyph_info, QList composites) flShape
+t:flShapeInfo representation Constructors: flShapeInfo() flShapeInfo(flObject) flShapeInfo(flShapeInfo) flShapeInfo(flShape, flSearchInfo) flShapeInfo(flShape, QTransform) flShapeInfo(flShape, QTransform, QList composites) flShapeInfo(flShape, QTransform, flObject glyph_info, QList composites) flShapeInfo(flShape, flLayer, QTransform) flShapeInfo(flShape, flLayer, flObject glyph_info[, QTransform transform=QTransform()[, QList composites=QList()]])
 p:composites,dist,fontlab.flShapeInfo.composites,fontlab.flShapeInfo.dist,fontlab.flShapeInfo.glyphInfo,fontlab.flShapeInfo.hasChanges,fontlab.flShapeInfo.hasHistoryStates,fontlab.flShapeInfo.id,fontlab.flShapeInfo.isChanged,fontlab.flShapeInfo.isNull,fontlab.flShapeInfo.isPresent,fontlab.flShapeInfo.isReleased,fontlab.flShapeInfo.isValid,fontlab.flShapeInfo.layer,fontlab.flShapeInfo.name,fontlab.flShapeInfo.refCnt,fontlab.flShapeInfo.shape,fontlab.flShapeInfo.transform,fontlab.flShapeInfo.type,glyphInfo,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,layer,name,refCnt,shape,transform,type
 p:composites	read/write	QList<flShapeInfo>
 p:dist	read/write	double dist
@@ -5266,8 +5175,6 @@ m:toGlyphTransform	QTransform toGlyphTransform()
 m:update	update()
 
 [class:flSnapLine]
-source:pygate/pyflsnapline.cpp
-bases:flSnapObject
 t:flSnapLine representation Constructors: flSnapLine() flSnapLine(flObject) flSnapLine(flSnapLine)
 p:angle,angleMode,center,centerPoint,color,constraints,expression,extLinef,extPosition,extension,fontlab.flSnapLine.angle,fontlab.flSnapLine.angleMode,fontlab.flSnapLine.center,fontlab.flSnapLine.centerPoint,fontlab.flSnapLine.color,fontlab.flSnapLine.constraints,fontlab.flSnapLine.expression,fontlab.flSnapLine.extLinef,fontlab.flSnapLine.extPosition,fontlab.flSnapLine.hasChanges,fontlab.flSnapLine.hasColor,fontlab.flSnapLine.hasExpression,fontlab.flSnapLine.hasHistoryStates,fontlab.flSnapLine.haveExtLine,fontlab.flSnapLine.id,fontlab.flSnapLine.isAbsoluteMarkerPos,fontlab.flSnapLine.isChanged,fontlab.flSnapLine.isExluded,fontlab.flSnapLine.isHint,fontlab.flSnapLine.isInUse,fontlab.flSnapLine.isMeasurementLine,fontlab.flSnapLine.isNull,fontlab.flSnapLine.isPassive,fontlab.flSnapLine.isPresent,fontlab.flSnapLine.isReleased,fontlab.flSnapLine.isShortGuideline,fontlab.flSnapLine.isValid,fontlab.flSnapLine.isZone,fontlab.flSnapLine.length,fontlab.flSnapLine.linef,fontlab.flSnapLine.markers,fontlab.flSnapLine.markersStructVersion,fontlab.flSnapLine.name,fontlab.flSnapLine.refCnt,fontlab.flSnapLine.snapFlags,fontlab.flSnapLine.style,fontlab.flSnapLine.type,fontlab.flSnapLine.vector,fontlab.flSnapLine.vectorPoint,hasChanges,hasColor,hasExpression,hasExtLine,hasHistoryStates,haveExtLine,id,isAbsoluteMarkerPos,isChanged,isExluded,isGhost,isHint,isInUse,isMeasurementLine,isNull,isPassive,isPresent,isReleased,isShortGuideline,isValid,isZone,length,linef,markers,markersStructVersion,name,refCnt,snapFlags,style,type,vector,vectorPoint
 p:angle	read/write	double
@@ -5355,8 +5262,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flSnapObject]
-source:pygate/pyflsnapobject.cpp
-bases:flObject
 t:flSnapObject representation Constructors: flSnapObject() flSnapObject(flObject) flSnapObject(flSnapObject)
 p:fontlab.flSnapObject.hasChanges,fontlab.flSnapObject.hasHistoryStates,fontlab.flSnapObject.id,fontlab.flSnapObject.isChanged,fontlab.flSnapObject.isExluded,fontlab.flSnapObject.isHint,fontlab.flSnapObject.isInUse,fontlab.flSnapObject.isMeasurementLine,fontlab.flSnapObject.isNull,fontlab.flSnapObject.isPassive,fontlab.flSnapObject.isPresent,fontlab.flSnapObject.isReleased,fontlab.flSnapObject.isValid,fontlab.flSnapObject.isZone,fontlab.flSnapObject.name,fontlab.flSnapObject.refCnt,fontlab.flSnapObject.snapFlags,fontlab.flSnapObject.style,fontlab.flSnapObject.type,hasChanges,hasHistoryStates,id,isChanged,isExluded,isGhost,isHint,isInUse,isMeasurementLine,isNull,isPassive,isPresent,isReleased,isValid,isZone,name,refCnt,snapFlags,style,type
 p:hasChanges	read	bool
@@ -5422,12 +5327,10 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flSnaps]
-alias:Snaps
 t:snap object constants
 m:__init__	x.__init__(...) initializes x; see help(type(x)) for signature
 
 [class:flStem]
-source:pygate/pyflstem.cpp
 t:flStem representation Constructors: flStem() flStem(double _v[, QString _n = ]) flStem(fgStem)
 p:fontlab.flStem.name,fontlab.flStem.program,fontlab.flStem.programText,fontlab.flStem.tags,fontlab.flStem.value,name,program,programText,tags,value
 p:value	read/write	double
@@ -5439,8 +5342,6 @@ m:tagsSet	QSet/Nothing tagsSet()
 m:toStem	toStem(fgStem)
 
 [class:flSticker]
-source:pygate/pyflsticker.cpp
-bases:flObject
 t:flSticker representation Constructors: flSticker() flSticker(flObject) flSticker(flSticker) flSticker(QString)
 p:boundingBox,fontlab.flSticker.boundingBox,fontlab.flSticker.hasChanges,fontlab.flSticker.hasHistoryStates,fontlab.flSticker.id,fontlab.flSticker.isChanged,fontlab.flSticker.isNull,fontlab.flSticker.isPresent,fontlab.flSticker.isReleased,fontlab.flSticker.isValid,fontlab.flSticker.name,fontlab.flSticker.refCnt,fontlab.flSticker.shape,fontlab.flSticker.text,fontlab.flSticker.textRect,fontlab.flSticker.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,shape,text,textRect,type
 p:boundingBox	read	QRectF boundingBox()
@@ -5495,7 +5396,6 @@ m:tag	tag([string])
 m:update	update()
 
 [class:flTTHCommand]
-source:pygate/pyfllayer.cpp
 t:flTTHCommand representation Constructors: flTTHCommand() - default
 p:code,fontlab.flTTHCommand.code,fontlab.flTTHCommand.parameters,fontlab.flTTHCommand.point_names,parameters,point_names
 p:code	read/write	int
@@ -5513,8 +5413,6 @@ m:stemIndex	int stemIndex()
 m:zoneIndex	int zoneIndex()
 
 [class:flTextBlock]
-source:pygate/pyfltextblock.cpp
-bases:flObject
 t:flTextBlock representation Constructors: flTextBlock() flTextBlock(flObject) flTextBlock(flTextBlock) flTextBlock(flPackage, flTextObject[, int font_size=42[, int formatMode=tbfText[, QRectF canvas_rect=QRectF(0,0, 800,600)]]])
 p:editMode,fontSize,fontlab.flTextBlock.editMode,fontlab.flTextBlock.fontSize,fontlab.flTextBlock.formatMode,fontlab.flTextBlock.frameRect,fontlab.flTextBlock.hasChanges,fontlab.flTextBlock.hasHistoryStates,fontlab.flTextBlock.id,fontlab.flTextBlock.initiallySelected,fontlab.flTextBlock.isChanged,fontlab.flTextBlock.isNull,fontlab.flTextBlock.isPresent,fontlab.flTextBlock.isReleased,fontlab.flTextBlock.isValid,fontlab.flTextBlock.kerningProcessing,fontlab.flTextBlock.layoutProcessing,fontlab.flTextBlock.locked,fontlab.flTextBlock.marksProcessing,fontlab.flTextBlock.name,fontlab.flTextBlock.package,fontlab.flTextBlock.refCnt,fontlab.flTextBlock.script,fontlab.flTextBlock.textObject,fontlab.flTextBlock.transform,fontlab.flTextBlock.type,formatMode,frameRect,hasChanges,hasHistoryStates,id,initiallySelected,isChanged,isNull,isPresent,isReleased,isValid,kerningProcessing,layoutProcessing,locked,marksProcessing,name,package,refCnt,script,textObject,transform,type
 p:editMode	read/write	EditMode
@@ -5649,8 +5547,6 @@ m:updateSymbols	updateSymbols()
 m:visibleShapes	list(flShape)/Nothing visibleShapes()
 
 [class:flTransform]
-source:pygate/pyfltransform.cpp
-bases:flObject
 t:flTransform representation Constructors: flTransform() flTransform(flTransform) flTransform(flObject) flTransform(QTransform)
 p:fontlab.flTransform.hasChanges,fontlab.flTransform.hasHistoryStates,fontlab.flTransform.id,fontlab.flTransform.isChanged,fontlab.flTransform.isNull,fontlab.flTransform.isPresent,fontlab.flTransform.isReleased,fontlab.flTransform.isValid,fontlab.flTransform.name,fontlab.flTransform.refCnt,fontlab.flTransform.scale,fontlab.flTransform.transform,fontlab.flTransform.type,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,name,refCnt,scale,transform,type
 p:hasChanges	read	bool
@@ -5705,8 +5601,6 @@ m:translate	void translate(QPointF | double x, double y)
 m:update	update()
 
 [class:flVectorNode]
-source:pygate/pyflvectornode.cpp
-bases:flAbstractVectorNode
 t:flVectorNode representation Constructors: flVectorNode(flObject) flVectorNode(flVectorNode) flVectorNode(flGuideLine, QPointF)
 p:angle,contour,fontlab.flVectorNode.angle,fontlab.flVectorNode.contour,fontlab.flVectorNode.g2,fontlab.flVectorNode.guideline,fontlab.flVectorNode.hasChanges,fontlab.flVectorNode.hasHistoryStates,fontlab.flVectorNode.hobby,fontlab.flVectorNode.id,fontlab.flVectorNode.index,fontlab.flVectorNode.interpolated,fontlab.flVectorNode.interpolatedX,fontlab.flVectorNode.interpolatedY,fontlab.flVectorNode.isChanged,fontlab.flVectorNode.isNull,fontlab.flVectorNode.isPresent,fontlab.flVectorNode.isReleased,fontlab.flVectorNode.isSelectedAlone,fontlab.flVectorNode.isTerminal,fontlab.flVectorNode.isValid,fontlab.flVectorNode.mode,fontlab.flVectorNode.name,fontlab.flVectorNode.nodeState,fontlab.flVectorNode.position,fontlab.flVectorNode.preview,fontlab.flVectorNode.refCnt,fontlab.flVectorNode.scv,fontlab.flVectorNode.selected,fontlab.flVectorNode.smartAngleR,fontlab.flVectorNode.smooth,fontlab.flVectorNode.state,fontlab.flVectorNode.type,fontlab.flVectorNode.x,fontlab.flVectorNode.y,g2,guideline,hasChanges,hasHistoryStates,hobby,id,index,interpolated,interpolatedX,interpolatedY,isChanged,isNull,isPresent,isReleased,isSelectedAlone,isTerminal,isValid,mode,name,nodeState,position,preview,refCnt,scv,selected,smartAngleR,smooth,state,type,x,y
 p:angle	read	angle
@@ -5834,8 +5728,6 @@ m:updateG2	bool updateG2()
 m:updateSmooth	updateSmooth([bool extended_neibh=true])
 
 [class:flVisualItem]
-source:pygate/pyflvisualitem.cpp
-bases:flObject
 t:flVisualItem representation Constructors: flVisualItem() flVisualItem(flVisualItem) flVisualItem(flObject) flVisualItem(objId id)
 p:fontlab.flVisualItem.hasChanges,fontlab.flVisualItem.hasHistoryStates,fontlab.flVisualItem.hovered,fontlab.flVisualItem.id,fontlab.flVisualItem.isChanged,fontlab.flVisualItem.isNull,fontlab.flVisualItem.isPresent,fontlab.flVisualItem.isReleased,fontlab.flVisualItem.isValid,fontlab.flVisualItem.locked,fontlab.flVisualItem.name,fontlab.flVisualItem.opacity,fontlab.flVisualItem.owner,fontlab.flVisualItem.refCnt,fontlab.flVisualItem.selected,fontlab.flVisualItem.transform,fontlab.flVisualItem.type,fontlab.flVisualItem.visible,hasChanges,hasHistoryStates,hovered,id,isChanged,isNull,isPresent,isReleased,isValid,locked,name,opacity,owner,refCnt,selected,transform,type,visible
 p:hasChanges	read	bool
@@ -5928,8 +5820,6 @@ m:unselect	unselect()
 m:update	update()
 
 [class:flWorkspace]
-source:pygate/pyflworkspace.cpp
-bases:flObject
 t:flWorkspace representation Constructors: flWorkspace() flWorkspace(flWorkspace) flWorkspace(flObject) flWorkspace(objId id) flWorkspace(QString title)
 p:activeFontPanel,activeTextMode,currentFontPanel,currentGlyph,currentPackage,cursorId,defaultFontSize,fontlab.flWorkspace.activeFontPanel,fontlab.flWorkspace.activeTextMode,fontlab.flWorkspace.currentFontPanel,fontlab.flWorkspace.currentGlyph,fontlab.flWorkspace.currentPackage,fontlab.flWorkspace.cursorId,fontlab.flWorkspace.defaultFontSize,fontlab.flWorkspace.hasChanges,fontlab.flWorkspace.hasHistoryStates,fontlab.flWorkspace.id,fontlab.flWorkspace.isChanged,fontlab.flWorkspace.isNull,fontlab.flWorkspace.isPresent,fontlab.flWorkspace.isReleased,fontlab.flWorkspace.isValid,fontlab.flWorkspace.mainWindow,fontlab.flWorkspace.name,fontlab.flWorkspace.paintBrush,fontlab.flWorkspace.paintColor,fontlab.flWorkspace.pen,fontlab.flWorkspace.penColor,fontlab.flWorkspace.refCnt,fontlab.flWorkspace.signedObjects,fontlab.flWorkspace.sketchboard,fontlab.flWorkspace.type,fontlab.flWorkspace.uiState,hasChanges,hasHistoryStates,id,isChanged,isNull,isPresent,isReleased,isValid,mainWindow,name,paintBrush,paintColor,pen,penColor,refCnt,signedObjects,sketchboard,toolBarButtonStyle,type,uiState
 p:activeFontPanel	read/write	QWidget*
@@ -6066,7 +5956,6 @@ m:updateActiveViewport	updateActiveViewport()
 m:weAreOnPaper	bool weAreOnPaper()
 
 [class:flZone]
-source:pygate/pyflzone.cpp
 t:flZone representation Constructors: flZone() flZone(double p, double w[, QString _n = ]) flZone(flZone)
 p:fontlab.flZone.name,fontlab.flZone.position,fontlab.flZone.program,fontlab.flZone.programText,fontlab.flZone.tags,fontlab.flZone.width,name,position,program,programText,tags,width
 p:position	read/write	double

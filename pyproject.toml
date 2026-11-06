@@ -1,9 +1,0 @@
-[project]
-name = "fontlab-aidus-kit"
-version = "0.1.0"
-description = "Portable FontLab 9 references and Aidus MCP integration helpers"
-requires-python = ">=3.10"
-dependencies = []
-license = "MIT"
-license-files = ["LICENSE.md"]
-# Run tools directly; no pip install required.

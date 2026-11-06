@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline, bounded lookup of the kit's source-derived references."""
+"""Offline, bounded lookup of the kit's API references."""
 from __future__ import annotations
 import argparse
 import json
@@ -22,10 +22,10 @@ def lookup_class(name, member=None):
     matches = {kind: record[kind][member] for kind in ("m", "s", "pd", "x")
                if member in record.get(kind, {})}
     if member in record.get("p", []) and "pd" not in matches:
-        matches["property"] = "Historical property listing; verify access in the installed build."
+        matches["property"] = "Property; verify access in the installed build."
     if not matches:
         raise ValueError("Member not listed: " + name + "." + member)
-    return {"class": name, "member": member, "binding_source": record.get("binding_source"), **matches}
+    return {"class": name, "member": member, **matches}
 
 
 def lookup_mcp(name):

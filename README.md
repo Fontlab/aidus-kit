@@ -1,45 +1,39 @@
-# FontLab Aidus Kit
+# Aidus Kit
 
-A portable reference and integration kit for using Aidus and other MCP-capable assistants with FontLab 9. It contains agent instructions, Python API references, exact MCP tool schemas, VFJ definitions, configuration templates, and small Python helpers.
+API references, agent instructions, and connection templates for using Aidus or another MCP assistant with FontLab 9.
 
-**License:** [MIT](LICENSE.md), covering this kit’s documentation and helper scripts. This repository does not include the FontLab application, the `fontlab-mcp` executable, the Aidus application, model credentials, or font files.
+## Setup
 
-Repository: [Fontlab/aidus-kit](https://github.com/Fontlab/aidus-kit).
+You need FontLab 9, its matching `fontlab-mcp` bridge, and an MCP-capable Aidus installation or other MCP host. The external Python helpers require Python 3.10+ and no additional packages.
 
-## Start here
+1. Start FontLab and enable **Preferences → Aidus → Allow external MCP clients to control FontLab**.
+2. Set the bridge executable path in your host. Use [mcp.example.json](config/mcp.example.json) for a generic host, or merge [aidus_config.example.json](config/aidus_config.example.json) into your Aidus configuration. Preserve your existing provider settings.
+3. For Aidus, adapt [agents.example.yml](config/agents.example.yml): replace the model, bridge path, and prompt path. Apply it to the `agents.yml` used by your Aidus Core. The Core can also read the bridge path from `FONTLAB_MCP_PATH`.
+4. Load [AIDUS.md](prompts/AIDUS.md) as the agent instructions and make this kit's reference files available to the agent.
+5. Ask the assistant to list the open fonts without changing them.
 
-1. Read [setup](docs/SETUP.md) and enable external MCP access in a compatible running FontLab build.
-2. Point the MCP host at the matching `fontlab-mcp` executable.
-3. Load [the agent instructions](prompts/AIDUS.md), then retrieve relevant API sections as needed.
-4. Run a read-only capability check:
+On macOS, the bridge may be inside `FontLab 9.app/Contents/MacOS`. If it is supplied separately, use that executable instead. A bridge command is an executable path, not a shell command. The bridge reads its authentication token automatically; do not put tokens or provider keys into these templates.
 
-   ```sh
-   python3 tools/doctor.py --bridge "/absolute/path/to/fontlab-mcp"
-   ```
+You can check the connection without editing a font:
 
-5. Inspect fonts without modifying them:
+```sh
+python3 docs/mcp/client.py "/absolute/path/to/fontlab-mcp"
+```
 
-   ```sh
-   python3 examples/inspect_font.py --bridge "/absolute/path/to/fontlab-mcp"
-   ```
+This discovers the installed tools and lists open fonts. Tool availability and argument schemas from the running application take precedence over bundled references. Updating reference files does not add capabilities to an older application.
 
-Use Python 3.10 or newer for the external helpers. They use the standard library only. FontLab-dependent Python scripts run inside FontLab's embedded Python, not in this external interpreter. The kit does not install or update either runtime.
+## References
 
-## Choose the right reference
-
-| Need | File |
+| Task | Reference |
 |---|---|
-| Small starting prompt | [prompts/AIDUS.md](prompts/AIDUS.md) |
-| Detailed Python scripting rules | [Python agent guide](Resources/fontlab_python_agent_guide.md) |
-| Compact Python and MCP reference | [Chat JSON](Resources/fontlab_python_api_chat.json), [text appendix](Resources/chat_system_prompt_appendix.md) |
-| Full Python API | [JSON](Resources/fontlab_python_api.json), [text](Resources/fontlab_python_api.llm.md) |
-| Exact MCP parameters and examples | [MCP JSON](docs/mcp/fontlab-mcp.json) |
-| MCP workflows and behavior | [human guide](docs/mcp/GUIDE.md), [agent reference](docs/mcp/LLM.md) |
-| Full writable VFJ structure | [schema catalog](Resources/vfj_schema.json), [schema reference](docs/mcp/VFJ.md) |
-| Native action names | [action catalog](Resources/fontlab_action_catalog.json) |
-| Configuration | [templates](config/README.md) |
+| Write FontLab Python scripts | [Scripting guide](Resources/fontlab_python_agent_guide.md) |
+| Small Python/MCP context | [Chat JSON](Resources/fontlab_python_api_chat.json) or [text appendix](Resources/chat_system_prompt_appendix.md) |
+| Full Python API | [JSON](Resources/fontlab_python_api.json) or [text](Resources/fontlab_python_api.llm.md) |
+| MCP tools, exact arguments, results, and examples | [MCP reference](docs/mcp/fontlab-mcp.json) |
+| Writable glyph JSON | [VFJ schema](Resources/vfj_schema.json) |
+| Native action names | [Action catalog](Resources/fontlab_action_catalog.json) |
 
-Retrieve small sections rather than putting every reference into every model request:
+Retrieve the relevant definition rather than loading every catalog into each request:
 
 ```sh
 python3 tools/reference.py class flLayer --member addComponent
@@ -48,41 +42,37 @@ python3 tools/reference.py vfj component
 python3 tools/reference.py search "notifyChangesApplied" --limit 5
 ```
 
-## Working rules
+In the Python catalogs, `m` contains instance methods, `s` static methods, `p` property names, and `pd` property descriptions and access modes.
 
-- Discover `tools/list` in the actual running application. This snapshot describes source capabilities; it does not promise every FontLab 9 release supports them.
-- Resolve the font, glyph, and layer explicitly. Prefer focused native tools when they match the task.
-- Distinguish generating Python from executing it. Respect the host's execution policy.
-- Read before writing, use supported dry runs, preserve unrelated data, and verify results.
-- Full `set_glyph` replaces a glyph. Construction summaries are not writable VFJ.
-- Use one mutation stream at a time. Built-in Chat and an external Aidus agent share application state.
-- External MCP clients do not inherit FontLab Chat's per-tool confirmation UI. Enabling external MCP access grants real control; implement host-side authorization appropriate to the user's request.
+## Examples
 
-See [architecture and context loading](docs/ARCHITECTURE.md), [verification](docs/VERIFICATION.md), and [security](SECURITY.md).
-
-## Validate this checkout
-
-No FontLab installation or model provider is needed for offline validation:
+- [embedded_inspect.py](examples/embedded_inspect.py): run inside FontLab's Python environment to inspect the current font and masters.
+- [preview_construction.py](examples/preview_construction.py): validate a construction recipe through the bridge. It requires advertised dry-run support and never commits the result.
 
 ```sh
-python3 tools/verify.py
-python3 -m unittest discover -s tests -v
+python3 examples/preview_construction.py --bridge "/absolute/path/to/fontlab-mcp" --font-id 101 --glyph Aacute.preview --layer Regular --recipe '=A+acutecomb@top[_top]'
 ```
 
-The verifier checks required files, file hashes, symlinks, local Markdown links and heading anchors, Python syntax, text/JSON API consistency, MCP argument contracts, and accidental personal paths or credential-like values. The tests exercise the tools and client using fake local transports; they do not modify a live font. Actual installed-build behavior requires the separate read-only doctor and explicit disposable-font testing.
+Replace the sample font ID, glyph names, layer, and anchors with values discovered in your font.
 
-## Build a clean archive
+## Working safely
 
-```sh
-python3 tools/package.py --output dist/fontlab-aidus-kit-0.1.0.zip
-```
+Resolve the intended font, glyphs, and layers before editing. Use supported previews, preserve unrelated data, and verify readback. `set_glyph` replaces the whole glyph; it is not a partial patch. Its input must be full writable VFJ, not a construction summary or truncated output.
 
-The packager verifies the kit first and includes only manifest-listed files plus the manifest. It excludes reports, caches, virtual environments, and Git metadata. Existing archives are not replaced unless `--overwrite` is supplied.
+External MCP clients have real access to fonts, files, preferences, and Python execution. They do not inherit built-in Chat's per-tool confirmation dialogs. Keep actions within the user's request and use one mutation stream at a time. After a timeout, inspect state before retrying.
 
-## Maintain and release
+## Troubleshooting
 
-[Maintenance](docs/MAINTAINING.md) explains refreshing snapshots from an authorized FontLab source checkout and updating the manifest. [Release checklist](docs/RELEASE.md) covers final review and publishing. [Provenance](docs/PROVENANCE.md), [source snapshot](SOURCE.json), and [license status](LICENSE.md) identify scope and limitations.
+| Problem | Check |
+|---|---|
+| Cannot connect | FontLab is running; external MCP access is enabled; bridge path is correct |
+| Authentication failure | App and bridge match and run under the intended user |
+| Missing tool or Python member | Inspect installed capabilities and the exact object type |
+| Aidus ignores the prompt | Check its active manifest and prompt path, then reload |
+| Built-in Chat uses an old appendix | Check for a user-data override masking the bundled file |
 
-The [public release review](docs/RELEASE_REVIEW.md) records findings, fixes, checks, and remaining release decisions.
+The text appendix is reference material, not a replacement for FontLab's entire system prompt. Use the application's supported override mechanism if you install a custom appendix.
 
-Installed-build results: [FontLab 9.0.9807 and Aidus environment test](docs/INSTALLED_TEST.md). The opted-in `tools/live_smoke.py` command tests a disposable font; it is separate from read-only examples.
+## License
+
+[MIT](LICENSE.md), copyright 2026 Fontlab Ltd. The license covers this kit. FontLab, Aidus, and separately distributed software retain their own licenses.

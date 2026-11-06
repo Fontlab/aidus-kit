@@ -12,9 +12,6 @@
         "Object labels/references are local to the payload. Copy all definitions needed by referenced elements/contours. No external files or URLs are resolved by schema discovery.",
         "JSON Schema checks structure; native parsing additionally checks the format. Successful parsing does not prove component dependencies, rendering, expressions, or font-wide consistency. Inspect readback after committing."
       ],
-      "sources": [
-        "common/model/flglyph.cpp"
-      ],
       "examples": [
         {
           "name": "H",
@@ -65,9 +62,6 @@
     "unicode_selector": {
       "title": "Unicode variation-selector record",
       "notes": [],
-      "sources": [
-        "common/model/flglyph.cpp"
-      ],
       "examples": []
     },
     "layer": {
@@ -75,9 +69,6 @@
       "notes": [
         "Layer coordinates are font units. Layer name matching matters for component sources and masters.",
         "Prefer edit_layer_hints, set_glyph_anchors and set_glyph_metrics for small focused edits. Full replacement preserves only supplied layers."
-      ],
-      "sources": [
-        "common/model/fllayer.cpp"
       ],
       "examples": [
         {
@@ -126,9 +117,6 @@
         "Choose component or elementData as content. Element transforms act on the content; contour tx is separate.",
         "Shared elementData/transform/contour objects may use string labels or {$ref:...}; preserve exported representation (see references)."
       ],
-      "sources": [
-        "common/model/flshape.cpp"
-      ],
       "examples": [
         {
           "component": {
@@ -148,9 +136,6 @@
         "Outlines are under elementData.contours, not directly under an element.",
         "Groups contain composite.includes, each an element. Components can be directly on an element or inside elementData.",
         "get_glyph emits embedded PNG data for portable replacement. Do not invent imageId references."
-      ],
-      "sources": [
-        "common/model/flshapedata.cpp"
       ],
       "examples": [
         {
@@ -185,9 +170,6 @@
         "Do not put transform inside component. Placement belongs to its enclosing element.",
         "Avoid self references and dependency cycles; refer to existing source glyphs/layers. Native parse validation alone does not establish dependency correctness."
       ],
-      "sources": [
-        "common/model/flcompositeshapesbuilder.cpp"
-      ],
       "examples": [
         {
           "glyphName": "A",
@@ -204,9 +186,6 @@
         "Omit transform for identity. For projective matrices, divide affine numerators by xzScale*x+yzScale*y+zzScale. Preserve exported projective values; all-three-equal-1 is treated as the legacy affine sentinel.",
         "Native serialization uses 8-decimal transform precision."
       ],
-      "sources": [
-        "common/model/fldatablocks.cpp"
-      ],
       "examples": [
         {
           "xScale": 0,
@@ -222,9 +201,6 @@
       "notes": [
         "Cubic segments have two curve handles between on-curve endpoints. Quadratic controls use off. Node indices are storage order; index in nodes_list is informational, not an insertion target.",
         "Full VFJ import is more permissive than edit_glyph_nodes. Malformed contours may be normalized by the reader; inspect readback."
-      ],
-      "sources": [
-        "common/model/flcontour.cpp"
       ],
       "examples": [
         {
@@ -295,9 +271,6 @@
       "notes": [
         "Coordinates and flags belong to this node, not the enclosing element. Node types and aliases follow nodeTypeFromString."
       ],
-      "sources": [
-        "common/model/flcontour.cpp"
-      ],
       "examples": [
         {
           "x": 0,
@@ -320,9 +293,6 @@
       "notes": [
         "Other keys are decimal node indices mapping to dictionaries of native stroke/corner attributes. Preserve unrecognized attributes."
       ],
-      "sources": [
-        "common/model/flcontour.cpp"
-      ],
       "examples": []
     },
     "anchor": {
@@ -330,9 +300,6 @@
       "notes": [
         "Omitted point is the origin. Layer anchors are made anchors by their containing array.",
         "Use set_glyph_anchors for independent cloud/mark settings; VFJ can encode differing cloud and mark states in flags."
-      ],
-      "sources": [
-        "common/model/flpinpoint.cpp"
       ],
       "examples": [
         {
@@ -347,9 +314,6 @@
         "center is an absolute point; vector is a relative direction. Axis flags with position are a compact representation.",
         "Native linked node geometry and expressions can override explicit positions. Prefer edit_layer_hints with detach=true when intentionally breaking those links."
       ],
-      "sources": [
-        "common/model/flsnapline.cpp"
-      ],
       "examples": [
         {
           "horizontal": true,
@@ -362,18 +326,12 @@
     "marker": {
       "title": "Guideline marker",
       "notes": [],
-      "sources": [
-        "common/model/flsnapline.cpp"
-      ],
       "examples": []
     },
     "node_link": {
       "title": "Persistent node link",
       "notes": [
         "contour and linked objects may be native label references. Preserve identity relationships. Node index must exist in the referenced contour."
-      ],
-      "sources": [
-        "common/model/flanchor.cpp"
       ],
       "examples": []
     },
@@ -382,18 +340,12 @@
       "notes": [
         "One nested node object is read by the native wrapper; preserve its objectType. For plain unlinked coordinates use guideline.center and guideline.vector."
       ],
-      "sources": [
-        "common/model/flvectornode.cpp"
-      ],
       "examples": []
     },
     "composite": {
       "title": "Group or live construction",
       "notes": [
         "Without builder, a composite is a group. Live builders may regenerate contours from included elements."
-      ],
-      "sources": [
-        "common/model/flshapedata.cpp"
       ],
       "examples": [
         {
@@ -412,10 +364,6 @@
       "notes": [
         "Use embedded image.PNG for standalone replacement. SVG is the elementData.svg string instead."
       ],
-      "sources": [
-        "common/model/flblockreaderqjson.cpp",
-        "common/model/flblockwriterqjson.cpp"
-      ],
       "examples": []
     },
     "sticker": {
@@ -423,26 +371,17 @@
       "notes": [
         "Preserve exported arrow records; text stickers and arrow stickers use different subsets."
       ],
-      "sources": [
-        "common/model/flsticker.cpp"
-      ],
       "examples": []
     },
     "arrow": {
       "title": "Sticker arrow",
       "notes": [],
-      "sources": [
-        "common/model/flsticker.cpp"
-      ],
       "examples": []
     },
     "brush": {
       "title": "Fill brush",
       "notes": [
         "Native parser falls back to solid color for unsupported styles."
-      ],
-      "sources": [
-        "common/model/fldatablocks.cpp"
       ],
       "examples": [
         {
@@ -455,9 +394,6 @@
       "title": "Element outline pen",
       "notes": [
         "For editable expanded stroke behavior use element.stroke."
-      ],
-      "sources": [
-        "common/model/fldatablocks.cpp"
       ],
       "examples": [
         {
@@ -474,9 +410,6 @@
       "notes": [
         "Keep stroke properties consistent with element.pen. Unspecified values use native PenParameters defaults."
       ],
-      "sources": [
-        "common/model/flshape.cpp"
-      ],
       "examples": [
         {
           "thickness": 20,
@@ -490,18 +423,12 @@
       "notes": [
         "Gradient points use {x,y}, unlike the space-separated coordinate strings in native model objects."
       ],
-      "sources": [
-        "common/flcolors.cpp"
-      ],
       "examples": []
     },
     "tt_data": {
       "title": "Raw TrueType glyph data",
       "notes": [
         "Low-level TrueType program data. Prefer tth command strings for portable instruction edits; preserve raw arrays when round-tripping."
-      ],
-      "sources": [
-        "common/model/fllayer.cpp"
       ],
       "examples": [
         {
@@ -520,10 +447,6 @@
       "notes": [
         "Native version-1 Sigma links model nonlinear interpolation corrections. Preserve extensions and malformed-data retention envelopes. Evaluation additionally requires compatible masters and resolvable node identities."
       ],
-      "sources": [
-        "common/model/flhoi.cpp",
-        "common/model/flglyph.cpp"
-      ],
       "examples": [
         {
           "version": 1,
@@ -536,19 +459,12 @@
       "notes": [
         "Exactly one builder kind normally appears. Includes belong to the enclosing composite, not the builder. Retain builder-specific data when editing unrelated geometry."
       ],
-      "sources": [
-        "common/model/bin_types.cpp",
-        "common/model/flshapedata.cpp"
-      ],
       "examples": []
     },
     "builderMerger": {
       "title": "Merge included shapes.",
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "sources": [
-        "common/model/flautogroupshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -557,18 +473,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/flautoshape.cpp"
-      ],
       "examples": []
     },
     "builderScissors": {
       "title": "Scissors construction.",
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "sources": [
-        "common/model/flstapledshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -577,18 +487,12 @@
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
       ],
-      "sources": [
-        "common/model/flboolshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderStem": {
       "title": "Stem construction.",
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "sources": [
-        "common/model/flstemshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -597,18 +501,12 @@
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
       ],
-      "sources": [
-        "common/model/flniceshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderSmartCorner": {
       "title": "Smart corner parameters.",
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "sources": [
-        "common/model/flsmartangleshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -617,18 +515,12 @@
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
       ],
-      "sources": [
-        "common/model/flgroupshapesbuilder.cpp"
-      ],
       "examples": []
     },
     "builderComponent": {
       "title": "Legacy group alias.",
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "sources": [
-        "common/model/flgroupshapesbuilder.cpp"
       ],
       "examples": []
     },
@@ -637,18 +529,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/flbucketshapesbuilder.cpp"
-      ],
       "examples": []
     },
     "builderBrush": {
       "title": "Brush stroke.",
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "sources": [
-        "common/model/flstrokeshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -657,18 +543,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/flskinshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderMesh": {
       "title": "Mesh deformation.",
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "sources": [
-        "common/model/flmeshshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -677,18 +557,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/fltextshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderEngraving": {
       "title": "Engraving.",
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "sources": [
-        "common/model/flengravingshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -697,18 +571,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/flinterpolateshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderPowerStroke": {
       "title": "Power stroke.",
       "notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "sources": [
-        "common/model/flthickshapebuilder.cpp"
       ],
       "examples": []
     },
@@ -717,18 +585,12 @@
       "notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
       ],
-      "sources": [
-        "common/model/flgluedshapebuilder.cpp"
-      ],
       "examples": []
     },
     "builderManualTrace": {
       "title": "Manual trace pair.",
       "notes": [
         "This legacy writer emits two element entries in one object. Standard JSON objects cannot represent duplicate keys reliably. Use exported outlines for portable new construction; do not author this builder through set_glyph."
-      ],
-      "sources": [
-        "common/model/flmanualtracebuilder.cpp"
       ],
       "examples": []
     },
@@ -737,35 +599,22 @@
       "notes": [
         "Graph edges/routes and reference identities are native construction data."
       ],
-      "sources": [
-        "common/utils/flgraph.cpp"
-      ],
       "examples": []
     },
     "auto_contour": {
       "title": "Automatic contour record",
       "notes": [],
-      "sources": [
-        "common/model/flautoshape.cpp"
-      ],
       "examples": []
     },
     "auto_connector": {
       "title": "Automatic connector record",
       "notes": [],
-      "sources": [
-        "common/model/flautoshape.cpp"
-      ],
       "examples": []
     },
     "reference": {
       "title": "Native shared object reference",
       "notes": [
         "Native object definitions have id (or legacy label); references are label strings or {\"href\":\"label\"}. JSON Schema $ref is not a VFJ data field. Preserve the full reference graph."
-      ],
-      "sources": [
-        "common/model/flblockreaderqjson.cpp",
-        "common/model/flblockwriterqjson.cpp"
       ],
       "examples": []
     },
@@ -777,18 +626,12 @@
         "Empty parameter objects on parameter-free builders are intentional. Legacy/session fields are documented but not recommended for new portable payloads.",
         "The embedded chat accepts glyph_data up to 262144 UTF-16 code units. External MCP has no corresponding chat-only limit."
       ],
-      "examples": [],
-      "sources": [
-        "common/mcp/mcptools_source.cpp"
-      ]
+      "examples": []
     },
     "mesh": {
       "title": "Mesh deformation program",
       "notes": [
         "Rows and columns contain sequences of curves, each holding control points. Preserve topology when editing positions."
-      ],
-      "sources": [
-        "common/model/meshdata.cpp"
       ],
       "examples": []
     },
@@ -796,9 +639,6 @@
       "title": "Skin/brush element",
       "notes": [
         "This variant dictionary uses a SIX-NUMBER transform array [m11,m12,m21,m22,dx,dy], unlike ordinary element.transform."
-      ],
-      "sources": [
-        "common/model/flskinshapebuilder.cpp"
       ],
       "examples": [
         {
@@ -821,50 +661,32 @@
       "notes": [
         "Other keys are decimal connection indices; each value holds conn_front and conn_back native connection enums."
       ],
-      "sources": [
-        "common/utils/gluetool.cpp"
-      ],
       "examples": []
     },
     "route": {
       "title": "Fill graph route",
       "notes": [],
-      "sources": [
-        "common/utils/flgraph.cpp"
-      ],
       "examples": []
     },
     "edge": {
       "title": "Fill graph edge",
       "notes": [],
-      "sources": [
-        "common/utils/flgraph.cpp"
-      ],
       "examples": []
     },
     "vertex": {
       "title": "Fill graph vertex",
       "notes": [],
-      "sources": [
-        "common/utils/flgraph.cpp"
-      ],
       "examples": []
     },
     "curve": {
       "title": "Native curve record",
       "notes": [],
-      "sources": [
-        "common/model/flcontour.cpp"
-      ],
       "examples": []
     },
     "property": {
       "title": "Native expression property",
       "notes": [
         "Scalar properties use value/expression. Point properties use exprX/exprY/paramType/valuePointF. Prefer anchor.exprX/exprY for new anchor expressions."
-      ],
-      "sources": [
-        "common/model/flproperties.cpp"
       ],
       "examples": []
     },
@@ -873,9 +695,6 @@
       "notes": [
         "Native reader selects the subtype using objectType or enclosing field. References must resolve inside the supplied glyph."
       ],
-      "sources": [
-        "common/model/flvectornode.cpp"
-      ],
       "examples": []
     },
     "state": {
@@ -883,16 +702,10 @@
       "notes": [
         "Native saved detector state. Preserve the supplied versioned state during construction edits."
       ],
-      "sources": [
-        "common/model/flobject.cpp"
-      ],
       "examples": []
     },
     "expression": {
       "title": "Native expression object",
-      "sources": [
-        "common/model/flexpression.cpp"
-      ],
       "notes": [
         "Prefer explicit exprX/exprY fields for point expressions."
       ],
@@ -902,9 +715,6 @@
       "title": "Sigma interpolation link",
       "notes": [
         "from and to must differ. Cubic links require control2; quadratic links use control1. Controls are offsets in font units."
-      ],
-      "sources": [
-        "common/model/flhoi.cpp"
       ],
       "examples": []
     }
@@ -1081,9 +891,6 @@
         "For new glyphs, provide name and at least one named layer with advanceWidth. New layers should match font master names. Auto layers (flags bit 16) may regenerate from autoRecipe.",
         "Object labels/references are local to the payload. Copy all definitions needed by referenced elements/contours. No external files or URLs are resolved by schema discovery.",
         "JSON Schema checks structure; native parsing additionally checks the format. Successful parsing does not prove component dependencies, rendering, expressions, or font-wide consistency. Inspect readback after committing."
-      ],
-      "x-native-sources": [
-        "common/model/flglyph.cpp"
       ]
     },
     "unicode_selector": {
@@ -1100,10 +907,7 @@
       },
       "additionalProperties": true,
       "description": "Unicode variation-selector record",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flglyph.cpp"
-      ]
+      "x-native-notes": []
     },
     "layer": {
       "type": "object",
@@ -1280,9 +1084,6 @@
       "x-native-notes": [
         "Layer coordinates are font units. Layer name matching matters for component sources and masters.",
         "Prefer edit_layer_hints, set_glyph_anchors and set_glyph_metrics for small focused edits. Full replacement preserves only supplied layers."
-      ],
-      "x-native-sources": [
-        "common/model/fllayer.cpp"
       ]
     },
     "element": {
@@ -1400,9 +1201,6 @@
       "x-native-notes": [
         "Choose component or elementData as content. Element transforms act on the content; contour tx is separate.",
         "Shared elementData/transform/contour objects may use string labels or {$ref:...}; preserve exported representation (see references)."
-      ],
-      "x-native-sources": [
-        "common/model/flshape.cpp"
       ]
     },
     "element_data": {
@@ -1516,9 +1314,6 @@
         "Outlines are under elementData.contours, not directly under an element.",
         "Groups contain composite.includes, each an element. Components can be directly on an element or inside elementData.",
         "get_glyph emits embedded PNG data for portable replacement. Do not invent imageId references."
-      ],
-      "x-native-sources": [
-        "common/model/flshapedata.cpp"
       ]
     },
     "component": {
@@ -1587,9 +1382,6 @@
       "x-native-notes": [
         "Do not put transform inside component. Placement belongs to its enclosing element.",
         "Avoid self references and dependency cycles; refer to existing source glyphs/layers. Native parse validation alone does not establish dependency correctness."
-      ],
-      "x-native-sources": [
-        "common/model/flcompositeshapesbuilder.cpp"
       ]
     },
     "transform": {
@@ -1681,9 +1473,6 @@
         "The six-number construction summary [a,b,c,d,tx,ty] maps to xScale,xyScale,yxScale,yScale,xOffset,yOffset. It is not the writable VFJ representation.",
         "Omit transform for identity. For projective matrices, divide affine numerators by xzScale*x+yzScale*y+zzScale. Preserve exported projective values; all-three-equal-1 is treated as the legacy affine sentinel.",
         "Native serialization uses 8-decimal transform precision."
-      ],
-      "x-native-sources": [
-        "common/model/fldatablocks.cpp"
       ]
     },
     "contour": {
@@ -1781,9 +1570,6 @@
       "x-native-notes": [
         "Cubic segments have two curve handles between on-curve endpoints. Quadratic controls use off. Node indices are storage order; index in nodes_list is informational, not an insertion target.",
         "Full VFJ import is more permissive than edit_glyph_nodes. Malformed contours may be normalized by the reader; inspect readback."
-      ],
-      "x-native-sources": [
-        "common/model/flcontour.cpp"
       ]
     },
     "node": {
@@ -1864,9 +1650,6 @@
       "description": "Explicit nodes_list entry",
       "x-native-notes": [
         "Coordinates and flags belong to this node, not the enclosing element. Node types and aliases follow nodeTypeFromString."
-      ],
-      "x-native-sources": [
-        "common/model/flcontour.cpp"
       ]
     },
     "node_properties": {
@@ -1904,9 +1687,6 @@
       "description": "Contour node properties",
       "x-native-notes": [
         "Other keys are decimal node indices mapping to dictionaries of native stroke/corner attributes. Preserve unrecognized attributes."
-      ],
-      "x-native-sources": [
-        "common/model/flcontour.cpp"
       ]
     },
     "anchor": {
@@ -1996,9 +1776,6 @@
       "x-native-notes": [
         "Omitted point is the origin. Layer anchors are made anchors by their containing array.",
         "Use set_glyph_anchors for independent cloud/mark settings; VFJ can encode differing cloud and mark states in flags."
-      ],
-      "x-native-sources": [
-        "common/model/flpinpoint.cpp"
       ]
     },
     "guideline": {
@@ -2159,9 +1936,6 @@
       "x-native-notes": [
         "center is an absolute point; vector is a relative direction. Axis flags with position are a compact representation.",
         "Native linked node geometry and expressions can override explicit positions. Prefer edit_layer_hints with detach=true when intentionally breaking those links."
-      ],
-      "x-native-sources": [
-        "common/model/flsnapline.cpp"
       ]
     },
     "marker": {
@@ -2190,10 +1964,7 @@
       },
       "additionalProperties": true,
       "description": "Guideline marker",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flsnapline.cpp"
-      ]
+      "x-native-notes": []
     },
     "node_link": {
       "anyOf": [
@@ -2276,9 +2047,6 @@
       "description": "Persistent node link",
       "x-native-notes": [
         "contour and linked objects may be native label references. Preserve identity relationships. Node index must exist in the referenced contour."
-      ],
-      "x-native-sources": [
-        "common/model/flanchor.cpp"
       ]
     },
     "vector_node": {
@@ -2295,9 +2063,6 @@
       "description": "Linked guideline node wrapper",
       "x-native-notes": [
         "One nested node object is read by the native wrapper; preserve its objectType. For plain unlinked coordinates use guideline.center and guideline.vector."
-      ],
-      "x-native-sources": [
-        "common/model/flvectornode.cpp"
       ]
     },
     "composite": {
@@ -2330,9 +2095,6 @@
       "description": "Group or live construction",
       "x-native-notes": [
         "Without builder, a composite is a group. Live builders may regenerate contours from included elements."
-      ],
-      "x-native-sources": [
-        "common/model/flshapedata.cpp"
       ]
     },
     "image": {
@@ -2348,10 +2110,6 @@
       "description": "Embedded raster image",
       "x-native-notes": [
         "Use embedded image.PNG for standalone replacement. SVG is the elementData.svg string instead."
-      ],
-      "x-native-sources": [
-        "common/model/flblockreaderqjson.cpp",
-        "common/model/flblockwriterqjson.cpp"
       ]
     },
     "sticker": {
@@ -2425,9 +2183,6 @@
       "description": "Annotation sticker",
       "x-native-notes": [
         "Preserve exported arrow records; text stickers and arrow stickers use different subsets."
-      ],
-      "x-native-sources": [
-        "common/model/flsticker.cpp"
       ]
     },
     "arrow": {
@@ -2455,10 +2210,7 @@
       },
       "additionalProperties": true,
       "description": "Sticker arrow",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flsticker.cpp"
-      ]
+      "x-native-notes": []
     },
     "brush": {
       "type": "object",
@@ -2479,9 +2231,6 @@
       "description": "Fill brush",
       "x-native-notes": [
         "Native parser falls back to solid color for unsupported styles."
-      ],
-      "x-native-sources": [
-        "common/model/fldatablocks.cpp"
       ]
     },
     "pen": {
@@ -2519,9 +2268,6 @@
       "description": "Element outline pen",
       "x-native-notes": [
         "For editable expanded stroke behavior use element.stroke."
-      ],
-      "x-native-sources": [
-        "common/model/fldatablocks.cpp"
       ]
     },
     "stroke": {
@@ -2596,9 +2342,6 @@
       "description": "Expanded stroke parameters",
       "x-native-notes": [
         "Keep stroke properties consistent with element.pen. Unspecified values use native PenParameters defaults."
-      ],
-      "x-native-sources": [
-        "common/model/flshape.cpp"
       ]
     },
     "gradient": {
@@ -2727,9 +2470,6 @@
       "description": "Gradient paint dictionary",
       "x-native-notes": [
         "Gradient points use {x,y}, unlike the space-separated coordinate strings in native model objects."
-      ],
-      "x-native-sources": [
-        "common/flcolors.cpp"
       ]
     },
     "tt_data": {
@@ -2804,9 +2544,6 @@
       "description": "Raw TrueType glyph data",
       "x-native-notes": [
         "Low-level TrueType program data. Prefer tth command strings for portable instruction edits; preserve raw arrays when round-tripping."
-      ],
-      "x-native-sources": [
-        "common/model/fllayer.cpp"
       ]
     },
     "sigma": {
@@ -2831,10 +2568,6 @@
       "description": "Sigma glyph metadata",
       "x-native-notes": [
         "Native version-1 Sigma links model nonlinear interpolation corrections. Preserve extensions and malformed-data retention envelopes. Evaluation additionally requires compatible masters and resolvable node identities."
-      ],
-      "x-native-sources": [
-        "common/model/flhoi.cpp",
-        "common/model/flglyph.cpp"
       ]
     },
     "builder": {
@@ -2921,10 +2654,6 @@
       "description": "Native live shape builder",
       "x-native-notes": [
         "Exactly one builder kind normally appears. Includes belong to the enclosing composite, not the builder. Retain builder-specific data when editing unrelated geometry."
-      ],
-      "x-native-sources": [
-        "common/model/bin_types.cpp",
-        "common/model/flshapedata.cpp"
       ]
     },
     "builderMerger": {
@@ -2934,9 +2663,6 @@
       "description": "Merge included shapes.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flautogroupshapebuilder.cpp"
       ]
     },
     "builderAuto": {
@@ -2983,9 +2709,6 @@
       "description": "Automatic contour/connectors.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flautoshape.cpp"
       ]
     },
     "builderScissors": {
@@ -2995,9 +2718,6 @@
       "description": "Scissors construction.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flstapledshapebuilder.cpp"
       ]
     },
     "builderClipping": {
@@ -3007,9 +2727,6 @@
       "description": "Clipping construction.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flboolshapebuilder.cpp"
       ]
     },
     "builderStem": {
@@ -3019,9 +2736,6 @@
       "description": "Stem construction.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flstemshapebuilder.cpp"
       ]
     },
     "builderNice": {
@@ -3031,9 +2745,6 @@
       "description": "Nice curve construction.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flniceshapebuilder.cpp"
       ]
     },
     "builderSmartCorner": {
@@ -3058,9 +2769,6 @@
       "description": "Smart corner parameters.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flsmartangleshapebuilder.cpp"
       ]
     },
     "builderGroup": {
@@ -3070,9 +2778,6 @@
       "description": "Group construction.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flgroupshapesbuilder.cpp"
       ]
     },
     "builderComponent": {
@@ -3082,9 +2787,6 @@
       "description": "Legacy group alias.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flgroupshapesbuilder.cpp"
       ]
     },
     "builderFill": {
@@ -3112,9 +2814,6 @@
       "description": "Fill graph construction.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flbucketshapesbuilder.cpp"
       ]
     },
     "builderBrush": {
@@ -3133,9 +2832,6 @@
       "description": "Brush stroke.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flstrokeshapebuilder.cpp"
       ]
     },
     "builderSkin": {
@@ -3157,9 +2853,6 @@
       "description": "Skin construction.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flskinshapebuilder.cpp"
       ]
     },
     "builderMesh": {
@@ -3173,9 +2866,6 @@
       "description": "Mesh deformation.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flmeshshapebuilder.cpp"
       ]
     },
     "builderTypeShape": {
@@ -3221,9 +2911,6 @@
       "description": "Text/type shape.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/fltextshapebuilder.cpp"
       ]
     },
     "builderEngraving": {
@@ -3265,9 +2952,6 @@
       "description": "Engraving.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flengravingshapebuilder.cpp"
       ]
     },
     "builderDelta": {
@@ -3310,9 +2994,6 @@
       "description": "Interpolation links.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flinterpolateshapebuilder.cpp"
       ]
     },
     "builderPowerStroke": {
@@ -3322,9 +3003,6 @@
       "description": "Power stroke.",
       "x-native-notes": [
         "No VFJ-specific parameter fields are written by this builder; its inputs are the enclosing composite.includes. Internal behavior may also depend on included element properties."
-      ],
-      "x-native-sources": [
-        "common/model/flthickshapebuilder.cpp"
       ]
     },
     "builderGlued": {
@@ -3350,9 +3028,6 @@
       "description": "Glued shapes.",
       "x-native-notes": [
         "Parameters are interpreted by the native builder; preserve exported reference identities."
-      ],
-      "x-native-sources": [
-        "common/model/flgluedshapebuilder.cpp"
       ]
     },
     "builderManualTrace": {
@@ -3367,9 +3042,6 @@
       "description": "Manual trace pair.",
       "x-native-notes": [
         "This legacy writer emits two element entries in one object. Standard JSON objects cannot represent duplicate keys reliably. Use exported outlines for portable new construction; do not author this builder through set_glyph."
-      ],
-      "x-native-sources": [
-        "common/model/flmanualtracebuilder.cpp"
       ]
     },
     "graph": {
@@ -3435,9 +3107,6 @@
       "description": "Native fill graph",
       "x-native-notes": [
         "Graph edges/routes and reference identities are native construction data."
-      ],
-      "x-native-sources": [
-        "common/utils/flgraph.cpp"
       ]
     },
     "auto_contour": {
@@ -3459,10 +3128,7 @@
       },
       "additionalProperties": false,
       "description": "Automatic contour record",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flautoshape.cpp"
-      ]
+      "x-native-notes": []
     },
     "auto_connector": {
       "type": "object",
@@ -3509,10 +3175,7 @@
       },
       "additionalProperties": false,
       "description": "Automatic connector record",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flautoshape.cpp"
-      ]
+      "x-native-notes": []
     },
     "reference": {
       "type": "object",
@@ -3529,10 +3192,6 @@
       ],
       "x-native-notes": [
         "Native object definitions have id (or legacy label); references are label strings or {\"href\":\"label\"}. JSON Schema $ref is not a VFJ data field. Preserve the full reference graph."
-      ],
-      "x-native-sources": [
-        "common/model/flblockreaderqjson.cpp",
-        "common/model/flblockwriterqjson.cpp"
       ]
     },
     "mesh": {
@@ -3634,9 +3293,6 @@
       "description": "Mesh deformation program",
       "x-native-notes": [
         "Rows and columns contain sequences of curves, each holding control points. Preserve topology when editing positions."
-      ],
-      "x-native-sources": [
-        "common/model/meshdata.cpp"
       ]
     },
     "skin_element": {
@@ -3690,9 +3346,6 @@
       "description": "Skin/brush element",
       "x-native-notes": [
         "This variant dictionary uses a SIX-NUMBER transform array [m11,m12,m21,m22,dx,dy], unlike ordinary element.transform."
-      ],
-      "x-native-sources": [
-        "common/model/flskinshapebuilder.cpp"
       ]
     },
     "glue_parameters": {
@@ -3721,9 +3374,6 @@
       "description": "Glued element parameters",
       "x-native-notes": [
         "Other keys are decimal connection indices; each value holds conn_front and conn_back native connection enums."
-      ],
-      "x-native-sources": [
-        "common/utils/gluetool.cpp"
       ]
     },
     "route": {
@@ -3743,10 +3393,7 @@
       },
       "additionalProperties": true,
       "description": "Fill graph route",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/utils/flgraph.cpp"
-      ]
+      "x-native-notes": []
     },
     "edge": {
       "anyOf": [
@@ -3802,10 +3449,7 @@
           "$ref": "#/$defs/reference"
         }
       ],
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/utils/flgraph.cpp"
-      ]
+      "x-native-notes": []
     },
     "vertex": {
       "anyOf": [
@@ -3851,10 +3495,7 @@
           "$ref": "#/$defs/reference"
         }
       ],
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/utils/flgraph.cpp"
-      ]
+      "x-native-notes": []
     },
     "curve": {
       "type": "object",
@@ -3904,10 +3545,7 @@
       },
       "additionalProperties": true,
       "description": "Native curve record",
-      "x-native-notes": [],
-      "x-native-sources": [
-        "common/model/flcontour.cpp"
-      ]
+      "x-native-notes": []
     },
     "property": {
       "type": "object",
@@ -3957,9 +3595,6 @@
       "description": "Native expression property",
       "x-native-notes": [
         "Scalar properties use value/expression. Point properties use exprX/exprY/paramType/valuePointF. Prefer anchor.exprX/exprY for new anchor expressions."
-      ],
-      "x-native-sources": [
-        "common/model/flproperties.cpp"
       ]
     },
     "linked_node": {
@@ -4068,9 +3703,6 @@
       ],
       "x-native-notes": [
         "Native reader selects the subtype using objectType or enclosing field. References must resolve inside the supplied glyph."
-      ],
-      "x-native-sources": [
-        "common/model/flvectornode.cpp"
       ]
     },
     "state": {
@@ -4093,9 +3725,6 @@
       "description": "Automatic detector state",
       "x-native-notes": [
         "Native saved detector state. Preserve the supplied versioned state during construction edits."
-      ],
-      "x-native-sources": [
-        "common/model/flobject.cpp"
       ]
     },
     "expression": {
@@ -4118,9 +3747,6 @@
       "description": "Native expression object",
       "x-native-notes": [
         "Prefer explicit exprX/exprY fields for point expressions."
-      ],
-      "x-native-sources": [
-        "common/model/flexpression.cpp"
       ]
     },
     "sigma_link": {
@@ -4193,9 +3819,6 @@
       "description": "Sigma interpolation link",
       "x-native-notes": [
         "from and to must differ. Cubic links require control2; quadratic links use control1. Controls are offsets in font units."
-      ],
-      "x-native-sources": [
-        "common/model/flhoi.cpp"
       ]
     }
   }

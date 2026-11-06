@@ -1,4 +1,3 @@
-@generated scripts/build_python_api_spec.py
 @chat-appendix v1
 
 [notes]
@@ -8,7 +7,7 @@ workflow	Construction: get_glyph(detail=construction), build_glyph, set_glyph_an
 partial_edit	Inspect indexed nodes with get_glyph_nodes. edit_glyph_nodes batches add/delete/set/move/duplicate/duplicate_extrema/split/transform/reverse operations atomically with Undo. Indices include handles and are sequential; use descending original indices for insertion/deletion. duplicate centered=true uses dx/dy as total separation and moves adjacent handles by default. curve means an ordinary cubic handle; off means a quadratic handle. duplicate_extrema separates existing extrema along their tangent; axis selects the extrema and distance specifies total separation. Coordinates are shape-local. dry_run previews without changing the font.
 vfj	Discover writable VFJ with get_vfj_schema. Full glyph JSON uses layers[].elements[].elementData.contours[].nodes_list with x,y,type,smooth and optional flags by name. Component transforms belong on the enclosing element. set_glyph replaces the whole glyph; preserve unrelated fields/layers, use dry_run when advertised, then read back. Construction summaries are not writable VFJ.
 limits	Recent Chat builds accept 262144 UTF-16 code units of glyph_data and retain full glyph/schema reads up to 524288 units. These are chat limits, not VFJ/Python limits; use focused tools for larger edits.
-binding_scope	Installed tool availability and schemas are authoritative. These references combine current source binding registrations and historical fallback. Check runtime capability before using a recent API. p lists properties, pd gives access, m methods, s static methods.
+binding_scope	Installed tool schemas are authoritative. p lists properties, pd gives access, m methods, s static methods.
 components	flLayer.addComponent(name or (name, QTransform)) returns None and appends a live component. setGlyphComponents replaces shapes and accepts flags=0. shape.transform is a Qt matrix; preserve existing placement when composing. Do not silently decompose components or edit shared sources.
 lifetimes	Reacquire native wrappers after deletion, full replacement, Undo/Redo or close/reopen. Run editor mutations on the GUI thread. Canvas painters/events are borrowed for the callback only; unregister callback/tool tokens during cleanup.
 list_glyphs	query matches actual names and descriptive aliases; use returned actual names. detail=facts for comparisons; min_bottom/max_bottom inclusive for bottom range.
@@ -18,7 +17,7 @@ font_glyphs	font.glyphs is property not callable; items may be fgGlyph without i
 update	For direct editor edits, use flItems.notifyChangesApplied(title, [layer, glyph]) before/after with recursive history enabled; this refreshes scoped geometry and records history, not rollback. update()/Update() are not substitutes for Undo enrollment. Do not invent font.updateGlyph.
 fontpr	Inside authorized embedded Python: import fontpr; check fontpr.available(), inspect fontpr.list_tools(), call fontpr.call(name, **kwargs). Tool arguments are keywords, glyph_data is a dict, and failures raise fontpr.Error. run_python/get_python_output cannot be called recursively from fontpr.
 close	flPackage.close(prompt=True) controls prompting. close(False) can discard unsaved changes; it does not save. Inspect the exact save/export API and output format.
-legacy	get_current_glyph_info->get_current_glyphs/get_glyph; run_fontlab_script->run_python
+availability	Check installed capabilities before using an API; methods and tools vary by FontLab build.
 
 [actions]	id	label
 extrude	3D Extrude
@@ -94,7 +93,25 @@ set_tracking	Tracking
 tth_autohint	TT autohint
 unlink_metrics	Unlink metrics
 
-[mcp]	flag= R read M mutate
+[fl.fn]
+AllFonts	AllFonts() -> list[fgFont]
+CurrentFont	CurrentFont() -> fgFont | None
+CurrentGlyph	CurrentGlyph() -> fgGlyph | None
+Update	Update([fgGlyph|fgFont|flObject]) -> None
+SetCurrentFont	SetCurrentFont(fgFont) -> None
+SetCurrentGlyph	SetCurrentGlyph(fgGlyph) -> None
+AcceptChanges	AcceptChanges([clearChangedState=True]) -> None
+
+[fg.k]
+fgMOVE	Node move type
+fgLINE	Node line/on type
+fgCURVE	Node curve type
+fgOFFCURVE	Node off-curve type
+
+[fp]
+{"alias":"mcp_tools","fn":{"available":"available() -> bool","list_tools":"list_tools() -> list[dict]","call":"call(name, **kwargs)"},"dynamic":"each MCP tool as top-level callable except run_python,get_python_output","err":"fontpr.Error"}
+
+[mcp]
 get_preferences	R	query?,keys?,offset?,limit?	Read FontLab application preferences without an open font. Returns exact keys, values and types. Search keys with query or select exact keys. Credentials and unsupported value types are excluded. Use explain for preference meaning and allowed values.
 set_preferences	M	patch	Patch FontLab application preferences using exact keys and value types from get_preferences. Persists changes and refreshes preference listeners. Validate meaning and enum/range constraints with explain first. Some settings require a restart. Credentials and unsupported keys cannot be changed. Preferences are not part of font Undo.
 list_aidus_files	R	root?,path?,offset?,limit?	Discover or list the two allowed file folders under FontLab's user data folder: aidus=Aidus, scripts=Scripts/Aidus. No Python or open font required. With no arguments returns absolute roots; with root lists one directory, without recursion. Missing folders return exists=false; writes create parents. Links are listed but cannot be followed. Listing order is filesystem order; paginate without modifying the directory.
@@ -144,24 +161,6 @@ run_actions	M	actions,glyph_names?,layer_mode?,undo?,font_id?,font_name?	Run Fon
 set_notepad_content	M	text?,document?	Replace the active font's Notepad content directly, without Python. Supply exactly one of text (plain text, default size) or document (styled Notepad version-1 object with spans containing text and attrs, plus optional vertical and orientation). Creates one Notepad undo operation and marks the font modified; does not save the font, open the panel, or render a hidden panel. Returns success after applying content, not after proof rendering. Maximum serialized document size: 1 MiB.
 run_python	M	code	Run Python code in FontLab's main Python environment. Notepad content is available via fontlab.MainWindow().notepadDocument() and setNotepadDocument(json): read/write the active font's styled JSON document without opening the panel. The setter returns an empty string on success or an error message. Executed code may import fontpr (alias: mcp_tools) to call the same MCP tools programmatically, except run_python itself. Use only when other MCP tools cannot answer the request; for glyph facts such as contour_count, use list_glyphs fact filters instead.
 get_python_output	R	lines?	Return recent Python stdout/stderr captured by the MCP server.
-
-[fp]
-{"alias":"mcp_tools","fn":{"available":"available() -> bool","list_tools":"list_tools() -> list[dict]","call":"call(name, **kwargs)"},"dynamic":"each MCP tool as top-level callable except run_python,get_python_output","err":"fontpr.Error"}
-
-[fl.fn]
-AllFonts	AllFonts() -> list[fgFont]
-CurrentFont	CurrentFont() -> fgFont | None
-CurrentGlyph	CurrentGlyph() -> fgGlyph | None
-Update	Update([fgGlyph|fgFont|flObject]) -> None
-SetCurrentFont	SetCurrentFont(fgFont) -> None
-SetCurrentGlyph	SetCurrentGlyph(fgGlyph) -> None
-AcceptChanges	AcceptChanges([clearChangedState=True]) -> None
-
-[fg.k]
-fgMOVE	Node move type
-fgLINE	Node line/on type
-fgCURVE	Node curve type
-fgOFFCURVE	Node off-curve type
 
 [class:fgContour]
 t:Contour representation Constructors: fgContour() - default fgContour(fgContour) - copy
