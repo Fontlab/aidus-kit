@@ -74,7 +74,14 @@ def search(query, limit=10):
     needle = query.casefold()
     results = []
     for name, record in read("Resources/fontlab_python_api.json")["c"].items():
-        for kind in ("m", "s", "pd"):
+        if needle in name.casefold():
+            results.append({"kind": "class", "name": name})
+        # Some properties have names but no detailed pd record. They are still searchable.
+        for member in record.get("p", []):
+            label = name + "." + member
+            if member not in record.get("pd", {}) and needle in label.casefold():
+                results.append({"kind": "property", "name": label})
+        for kind in ("m", "s", "pd", "x"):
             for member, value in record.get(kind, {}).items():
                 label = name + "." + member
                 if needle in label.casefold() or needle in json.dumps(value, ensure_ascii=False).casefold():

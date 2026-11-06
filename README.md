@@ -2,17 +2,28 @@
 
 API references, agent instructions, and connection templates for using Aidus or another MCP assistant with FontLab 9.
 
+## Get the kit
+
+Clone the repository, then run the terminal commands below from its root folder:
+
+```sh
+git clone https://github.com/Fontlab/aidus-kit.git
+cd aidus-kit
+```
+
+Alternatively, download and extract the repository ZIP and open a terminal in the extracted folder. No `pip install` is required. This is a reference kit, not an installer for FontLab or Aidus.
+
 ## Setup
 
-You need FontLab 9, its matching `fontlab-mcp` bridge, and an MCP-capable Aidus installation or other MCP host. The external Python helpers require Python 3.10+ and no additional packages.
+You need FontLab 9, its matching `fontlab-mcp` bridge, and an MCP-capable Aidus installation or other MCP host. The external Python helpers require Python 3.10+ and no additional packages. Configure your chosen model/provider in Aidus separately. On Windows, you can use `py -3` instead of `python3`; quote paths containing spaces.
 
 1. Start FontLab and enable **Preferences → Aidus → Allow external MCP clients to control FontLab**.
 2. Set the bridge executable path in your host. Use [mcp.example.json](config/mcp.example.json) for a generic host, or merge [aidus_config.example.json](config/aidus_config.example.json) into your Aidus configuration. Preserve your existing provider settings.
 3. For Aidus, adapt [agents.example.yml](config/agents.example.yml): replace the model, bridge path, and prompt path. Apply it to the `agents.yml` used by your Aidus Core. The Core can also read the bridge path from `FONTLAB_MCP_PATH`.
-4. Load [AIDUS.md](prompts/AIDUS.md) as the agent instructions and make this kit's reference files available to the agent.
+4. Load [AIDUS.md](prompts/AIDUS.md) as the agent instructions. Give the host file/retrieval access to this kit, or attach the scripting guide and relevant reference excerpts to your conversation. Connecting the FontLab MCP bridge alone does **not** give an agent access to these local files. If the host cannot execute local commands, run `tools/reference.py` yourself and paste its output.
 5. Ask the assistant to list the open fonts without changing them.
 
-On macOS, the bridge may be inside `FontLab 9.app/Contents/MacOS`. If it is supplied separately, use that executable instead. A bridge command is an executable path, not a shell command. The bridge reads its authentication token automatically; do not put tokens or provider keys into these templates.
+The kit does not include the native bridge executable. Obtain it with the matching FontLab distribution; if it is absent, ask the distributor for a compatible bridge. On macOS, the bridge may be inside `FontLab 9.app/Contents/MacOS`. If it is supplied separately, use that executable instead. A bridge command is an executable path, not a shell command. The bridge reads its authentication token automatically; do not put tokens or provider keys into these templates.
 
 You can check the connection without editing a font:
 
@@ -20,7 +31,7 @@ You can check the connection without editing a font:
 python3 docs/mcp/client.py "/absolute/path/to/fontlab-mcp"
 ```
 
-This discovers the installed tools and lists open fonts. Tool availability and argument schemas from the running application take precedence over bundled references. Updating reference files does not add capabilities to an older application.
+A successful check prints JSON containing `tools` and `open_fonts`. An empty font list is normal when no font is open. This discovers the installed tools and lists open fonts. Tool availability and argument schemas from the running application take precedence over bundled references. Updating reference files does not add capabilities to an older application.
 
 ## References
 
@@ -46,14 +57,18 @@ In the Python catalogs, `m` contains instance methods, `s` static methods, `p` p
 
 ## Examples
 
-- [embedded_inspect.py](examples/embedded_inspect.py): run inside FontLab's Python environment to inspect the current font and masters.
+- [embedded_inspect.py](examples/embedded_inspect.py): open and run this file with FontLab’s script runner to inspect the current font and masters. It prints `package_id`, the active `master`, and available `masters`; it also works with no font open. Do not run it in a system terminal expecting the `fontlab` module to be available.
 - [preview_construction.py](examples/preview_construction.py): validate a construction recipe through the bridge. It requires advertised dry-run support and never commits the result.
 
 ```sh
-python3 examples/preview_construction.py --bridge "/absolute/path/to/fontlab-mcp" --font-id 101 --glyph Aacute.preview --layer Regular --recipe '=A+acutecomb@top[_top]'
+python3 examples/preview_construction.py --bridge "/absolute/path/to/fontlab-mcp" --font-id 101 --glyph A.preview --layer "Regular" --recipe "=A"
 ```
 
-Replace the sample font ID, glyph names, layer, and anchors with values discovered in your font.
+Open a font containing glyph `A` before trying this example. Obtain its current ID from the connection check’s `open_fonts` result or the embedded script’s `package_id`; use an exact master name from `masters`. Replace `101` and `Regular` accordingly. Font IDs belong to the current session and can change after reopening.
+
+Choose a destination glyph name that does not already exist, such as `A.preview`. The example validates `=A` without creating that destination; success returns `status: "validated"`. The destination must be new or empty because replacement is disabled. There is no commit switch.
+
+For an accent preview, use `"=A+acutecomb@top[_top]"` only after confirming that both source glyphs and the named anchors exist. A missing glyph, master, or anchor should produce an error rather than trigger a fallback edit.
 
 ## Working safely
 
@@ -65,6 +80,8 @@ External MCP clients have real access to fonts, files, preferences, and Python e
 
 | Problem | Check |
 |---|---|
+| `fontlab` cannot be imported | Run embedded scripts in FontLab; terminal helpers use the MCP bridge |
+| Bridge executable missing | Install the matching bridge and replace the placeholder path |
 | Cannot connect | FontLab is running; external MCP access is enabled; bridge path is correct |
 | Authentication failure | App and bridge match and run under the intended user |
 | Missing tool or Python member | Inspect installed capabilities and the exact object type |

@@ -12,6 +12,6 @@ For whole-glyph JSON edits, read full writable `get_glyph` output, discover `get
 
 Use a single mutation stream. Stop on errors and report partial completion. Do not replay a timed-out mutation until application state has been inspected. A successful print statement does not prove an edit, an Undo step, or a saved file.
 
-Retrieve only relevant reference sections. `tools/reference.py` can return a class member, MCP tool schema, or VFJ topic. Load the full catalog only when necessary. Static methods are recorded under `s`, instance methods under `m`, property names under `p`, and property descriptions/access under `pd`.
+Local reference files and `tools/reference.py` are not MCP tools. Use them only if the host provides file or command access; otherwise request or use user-supplied excerpts. Retrieve only relevant reference sections. `tools/reference.py` can return a class member, MCP tool schema, or VFJ topic. Load the full catalog only when necessary. Static methods are recorded under `s`, instance methods under `m`, property names under `p`, and property descriptions/access under `pd`.
 
 Return concrete results: inspected targets, changes, verification performed, unresolved failures, and saved paths where applicable. Do not expose authentication tokens, model credentials, private fonts, or personal paths in public reports.

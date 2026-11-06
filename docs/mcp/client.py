@@ -143,8 +143,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('bridge', help='Absolute path to the matching fontlab-mcp executable')
     args = parser.parse_args()
-    with Client(args.bridge) as client:
-        print(json.dumps({'tools':[t['name'] for t in client.tools()],
-                          'open_fonts':client.call('list_fonts')}, ensure_ascii=False, indent=2))
+    try:
+        with Client(args.bridge) as client:
+            print(json.dumps({'tools':[t['name'] for t in client.tools()],
+                              'open_fonts':client.call('list_fonts')}, ensure_ascii=False, indent=2))
+    except (OSError, RuntimeError, ValueError, EOFError) as exc:
+        parser.exit(1, f'Connection check failed: {exc}\nCheck the bridge path, running FontLab, and external MCP access setting.\n')
 
 if __name__ == '__main__': main()

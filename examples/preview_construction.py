@@ -27,8 +27,11 @@ def main():
     parser.add_argument("--layer", required=True)
     parser.add_argument("--recipe", required=True)
     args = parser.parse_args()
-    with Client(args.bridge) as client:
-        print(json.dumps(preview(client, args.font_id, args.glyph, args.layer, args.recipe), ensure_ascii=False, indent=2))
+    try:
+        with Client(args.bridge) as client:
+            print(json.dumps(preview(client, args.font_id, args.glyph, args.layer, args.recipe), ensure_ascii=False, indent=2))
+    except (OSError, RuntimeError, ValueError, EOFError) as exc:
+        parser.exit(1, f"Preview failed: {exc}\nCheck the bridge, font ID, layer, source glyphs and recipe. No commit was requested.\n")
 
 
 if __name__ == "__main__":
